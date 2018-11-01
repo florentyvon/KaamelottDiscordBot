@@ -8,20 +8,25 @@ const client = new CommandoClient({
 })
 
 client.registry
-            .registerDefaultTypes()
-            .registerDefaultGroups()
-            .registerDefaultCommands()
             .registerGroup('random', 'Random')
+            .registerDefaults()
             .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
 
-client.on('message', (message) => {
-        
+client.on('message', (message) => functionTest(message));
+var functionTest = async function(message)
+{
     if(message.content == 'Comment t\'es ce soir ?')
     {
         //message.reply('pong');
-        message.channel.send('Déchainé moi, déchainé !!!');
+        //msg.reply(`Hello! ${emoji}`);
+        
+        // const emoji = message.guild.emojis.first(); 
+        // message.channel.send(`Déchainé moi, déchainé !!! ${emoji}`);
+        var msg = await message.channel.send("Déchainé moi, déchainé !!!");
+        msg.react("👍");
+        msg.react("👎");
     }
-});
+};
 
 /*
 client.on('ready', () => { // when run bot
