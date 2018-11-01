@@ -14,8 +14,4 @@ Aloïs BRETAUDEAU, Mickaël MENEUX, Julien RAILLARD, Florent YVON
 #Demo
 
 #For developpers : 
-
-Required after cloning the project, in the Zanimots_KamelottBot folder :
-1. npm install --save 
-2. npm install discord.js --save 
-3. npm install discord.js-commando --save
+Use the following command line in the folder to install node modules after cloning the project : npm install --save
