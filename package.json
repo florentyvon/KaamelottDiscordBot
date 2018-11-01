@@ -1,0 +1,23 @@
+{
+  "name": "zanimotskamelottbot",
+  "version": "1.0.0",
+  "description": "ZanimotsKamelottBot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jraillard/ZanimotsKamelottBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jraillard/ZanimotsKamelottBot/issues"
+  },
+  "homepage": "https://github.com/jraillard/ZanimotsKamelottBot#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "discord.js-commando": "^0.10.0"
+  }
+}
