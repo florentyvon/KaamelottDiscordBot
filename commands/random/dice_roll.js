@@ -9,7 +9,18 @@ module.exports = class DiceRollCommand extends commando.Command{
             group: 'random', 
             memberName: 'roll',
             description: 'Rolls a die', 
-            examples: [ 'roll' ] // string array with different using  (Not Necessary)
+            examples: [ 'roll' ], // string array with different using  (Not Necessary)
+            args: [
+                {
+                    key: 'int',
+                    prompt: 'What would you like the dice to be ? ',
+                    type: 'integer',
+                    validate: int => {
+                        if (int >= 1 && int <= 6) return true;
+                        return 'Must be between 1 and 6 to be rolled';
+                    }
+                }
+            ]
         }); 
     }
 
@@ -18,8 +29,12 @@ module.exports = class DiceRollCommand extends commando.Command{
     * WARNING : Node support async method but must specify " --harmony " when run the app
     * so it become : node --harmony . 
     */
-    async run(message, args){  //args are parameter after name command
+    async run(message, {int}){  //args are parameter after name command
             var roll = Math.floor(Math.random() * 6) + 1;
-            message.reply("You rolled a " + roll + " (1 - 6)");            
+            if(roll === int){
+                message.reply("Congratulations ! You rolled a " + roll + " (1 - 6) as you wanted !");
+            }else{
+                message.reply("You rolled a " + roll + " (1 - 6) but wanted a "+ int + ". Try Again !");
+            }        
     }
 };
