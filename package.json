@@ -1,21 +1,21 @@
 {
-  "name": "zanimotskamelottbot",
+  "name": "KaamelottDiscordBot",
   "version": "1.0.0",
-  "description": "ZanimotsKamelottBot",
+  "description": "KaamelottDiscordBot is a project whcih aims at realizing a Discord Bot using quotes of the well known French TV show : Kaamelott",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jraillard/ZanimotsKamelottBot.git"
+    "url": "git+https://github.com/florentyvon/KaamelottDiscordBot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jraillard/ZanimotsKamelottBot/issues"
+    "url": "https://github.com/florentyvon/KaamelottDiscordBot/issues"
   },
-  "homepage": "https://github.com/jraillard/ZanimotsKamelottBot#readme",
+  "homepage": "https://github.com/florentyvon/KaamelottDiscordBot/issues#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
