@@ -2,17 +2,17 @@ const config = require("./config.json");
 const path = require('path');
 const { CommandoClient } = require('discord.js-commando');
 
-const client = new CommandoClient({
+const bot = new CommandoClient({
     commandPrefix: config.prefix,
     disableEveryone: true
 })
 
-client.registry
+bot.registry
             .registerGroup('random', 'Random')
             .registerDefaults()
             .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
 
-client.on('message', (message) => functionTest(message));
+bot.on('message', (message) => functionTest(message));
 var functionTest = async function(message)
 {
     if(message.content == 'Comment t\'es ce soir ?')
@@ -28,11 +28,11 @@ var functionTest = async function(message)
     }
 };
 
-/*
-client.on('ready', () => { // when run bot
+bot.on('ready', () => { // when run bot
     console.log('Logged in!');
-    client.user.setActivity('game');
-});*/
+    bot.user.setActivity('Cul de Chouette');
+    bot.user.setUsername('KaamelottDiscordBot');
+});
 
 //TODO : Find a way to hide it
-client.login(config.token);
+bot.login(config.token);
