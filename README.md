@@ -14,5 +14,11 @@ Aloïs BRETAUDEAU, Mickaël MENEUX, Julien RAILLARD, Florent YVON
 ## Demo
 
 ## For developpers : 
-1. Use the following command line in the folder to install node modules after cloning the project : "npm install --save"
-2. To run the bot : "node --harmony ." due to async method
+1. Use the following command line in the folder to install node modules after cloning the project : 
+```
+npm install --save
+```
+2. To run the bot, due to async method : 
+```
+node --harmony .
+```
