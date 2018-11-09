@@ -11,7 +11,7 @@ module.exports = class RandomInsulteCommand extends commando.Command{
             group: 'insulte', 
             memberName: 'insulte',
             description: 'Get random insult', 
-            examples: [ 'k!insulte @user' ], // string array with different using  (Not Necessary)
+            examples: [ 'k!insulte @user', 'k!insulte @user insult_id', 'Try k!insultelist to know all insult IDs' ], // string array with different using  (Not Necessary)
             args: [
                 {
                     key: 'user',
