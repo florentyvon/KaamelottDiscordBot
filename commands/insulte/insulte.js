@@ -3,6 +3,8 @@ const insultes = require('./data.json');
 
 module.exports = class RandomInsulteCommand extends commando.Command{
     constructor(client){
+        var nb = Object.keys(insultes).length;
+        var mess = Math.floor(Math.random() * nb)+1;
         // Only set client + CommandInfo
         super(client, {
             name: 'insulte',
@@ -14,7 +16,13 @@ module.exports = class RandomInsulteCommand extends commando.Command{
                 {
                     key: 'user',
                     prompt: 'What user do you want to insult ? ',
-                    type: 'user'
+                    type: 'user',
+                },
+                {
+                    key : 'id',
+                    prompt : 'Do you wnat to send a precise insult ?',
+                    type : 'integer',
+                    default : mess
                 }
             ]
         }); 
@@ -25,14 +33,14 @@ module.exports = class RandomInsulteCommand extends commando.Command{
     * WARNING : Node support async method but must specify " --harmony " when run the app
     * so it become : node --harmony . 
     */
-    async run(message, { user }) {
-		var nb = Object.keys(insultes).length;
-        var mess = Math.floor(Math.random() * nb)+1;
+    async run(message, { user, id }) {
+		//var nb = Object.keys(insultes).length;
+        // var mess = Math.floor(Math.random() * nb)+1;
         message.delete();
 		if(user.id === '507258744309022721'){
-			message.reply(insultes[mess]);
+			message.reply(insultes[id]);
 		}else{
-			message.channel.send(user+', '+insultes[mess]);
+			message.channel.send(user+', '+insultes[id]);
 		}		
     }
 };
