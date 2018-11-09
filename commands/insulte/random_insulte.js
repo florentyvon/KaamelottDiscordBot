@@ -15,12 +15,7 @@ module.exports = class RandomInsulteCommand extends commando.Command{
                     key: 'user',
                     prompt: 'What user do you want to insult ? ',
                     type: 'user'
-                },
-				{
-					key : 'list',
-					prompt : 'Sent you a DM with information.',
-					type : 'string'
-				}
+                }
             ]
         }); 
     }
