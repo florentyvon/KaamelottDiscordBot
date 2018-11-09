@@ -30,20 +30,15 @@ module.exports = class RandomInsulteCommand extends commando.Command{
     * WARNING : Node support async method but must specify " --harmony " when run the app
     * so it become : node --harmony . 
     */
-    async run(message, { user, list }) {
-		if(user != Null){
-			var nb = Object.keys(insultes).length;
+    async run(message, { user }) {
+		var nb = Object.keys(insultes).length;
         var mess = Math.floor(Math.random() * nb)+1;
         message.delete();
 		if(user.id === '507258744309022721'){
 			message.reply(insultes[mess]);
 		}else{
 			message.channel.send(user+', '+insultes[mess]);
-		}
-		}else{
-			message.channel.send('coucou');
-		}
-        
+		}		
 }
 
 };
