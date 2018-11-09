@@ -17,7 +17,7 @@ module.exports = class RandomInsulteCommand extends commando.Command{
             args: [
                 {
                     key: 'user',
-                    prompt: 'What user do you want to insult ? ',
+                    prompt: 'Who do you want to insult ? Tag him/her ',
                     type: 'user',
                 },
                 {
