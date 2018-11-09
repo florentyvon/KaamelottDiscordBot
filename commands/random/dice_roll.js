@@ -1,4 +1,3 @@
-<<<<<<< refs/remotes/origin/master
 const commando = require('discord.js-commando');
 
 
