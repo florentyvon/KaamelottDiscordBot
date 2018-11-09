@@ -8,8 +8,12 @@ module.exports = class RandomCitationCommand extends Command{
             name: 'citation',
             group: 'citation', 
             memberName: 'citation',
-            description: 'Get random citation', 
-            examples: [ 'citation' ], // string array with different using  (Not Necessary)
+            description: 'Renvoi une citation aléatoire.', 
+            examples: [ 
+                'citation (aucun filtre)',
+                'citation -l @numeroDeLivre (filtre sur un livre compris entre 1 et 6)',
+                'citation -a @nomPersonnage (filtre sur le personnage)'
+             ], 
             args: [
                 {
                     key: 'filter',
