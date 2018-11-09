@@ -1,14 +1,18 @@
-const config = require("./config.json");
-const path = require('path');
 const { CommandoClient } = require('discord.js-commando');
+const { prefix, token } = require("./config.json");
+const path = require('path');
 
 const bot = new CommandoClient({
-    commandPrefix: config.prefix,
-    disableEveryone: true
+    commandPrefix: prefix,
+    disableEveryone: true,
+    unknownCommandResponse: false
 })
 
 bot.registry
-            .registerGroup('random', 'Random')
+            .registerGroups([
+                ['random', 'random'],
+                ['citation', 'citation']
+            ])
             .registerDefaults()
             .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
 
@@ -35,4 +39,4 @@ bot.on('ready', () => { // when run bot
 });
 
 //TODO : Find a way to hide it
-bot.login(config.token);
+bot.login(token);
