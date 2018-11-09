@@ -11,7 +11,8 @@ const bot = new CommandoClient({
 bot.registry
             .registerGroups([
                 ['random', 'random'],
-                ['citation', 'citation']
+                ['citation', 'citation'],
+                ['insulte', 'insulte']
             ])
             .registerDefaults()
             .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
