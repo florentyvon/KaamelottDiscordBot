@@ -17,7 +17,7 @@ module.exports = class RandomCitationCommand extends Command{
             args: [
                 {
                     key: 'filter',
-                    prompt: 'Quel filtre souhaitez-vous?',
+                    prompt: 'Quel filtre souhaitez-vous? (-l pour livre ou -a pour auteur)',
                     type: 'string',
                     valide: filter => {
                         if (filter === '-l' || filter === '-a' || filter === '') return true;
