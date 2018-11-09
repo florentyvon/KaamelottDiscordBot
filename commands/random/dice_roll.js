@@ -8,8 +8,8 @@ module.exports = class DiceRollCommand extends commando.Command{
             name: 'roll',
             group: 'random', 
             memberName: 'roll',
-            description: 'Rolls a die', 
-            examples: [ 'roll' ], // string array with different using  (Not Necessary)
+            description: 'Roll a die and see if you\'re lucky', 
+            examples: [ 'k!roll 1', 'Congratulations ! You rolled a 1 as you wanted !', 'You rolled a 3 but wanted a 1. Try Again !'], // string array with different using  (Not Necessary)
             args: [
                 {
                     key: 'int',
