@@ -56,8 +56,7 @@ module.exports = class RandomCitationCommand extends Command{
         
         fetch(api)
             .then(res => res.json())
-            .then(function(json) {
-                message.delete();                
+            .then(function(json) {               
                 message.reply(CitationToString(json));
             })
                 .catch((err) => console.log(err + ' failed ' + filter));
