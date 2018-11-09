@@ -34,6 +34,5 @@ module.exports = class RandomInsulteCommand extends commando.Command{
 		}else{
 			message.channel.send(user+', '+insultes[mess]);
 		}		
-}
-
+    }
 };
