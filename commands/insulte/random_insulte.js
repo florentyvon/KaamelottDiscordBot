@@ -15,7 +15,12 @@ module.exports = class RandomInsulteCommand extends commando.Command{
                     key: 'user',
                     prompt: 'What user do you want to insult ? ',
                     type: 'user'
-                }
+                },
+				{
+					key : 'list',
+					prompt : 'Sent you a DM with information.',
+					type : 'string'
+				}
             ]
         }); 
     }
@@ -25,12 +30,20 @@ module.exports = class RandomInsulteCommand extends commando.Command{
     * WARNING : Node support async method but must specify " --harmony " when run the app
     * so it become : node --harmony . 
     */
-    async run(message, { user }) {
-        var nb = Object.keys(insultes).length;
-        console.log(nb);
-        var mess = Math.floor(Math.random() * nb);
+    async run(message, { user, list }) {
+		if(user != Null){
+			var nb = Object.keys(insultes).length;
+        var mess = Math.floor(Math.random() * nb)+1;
         message.delete();
-        message.channel.send(user+', '+insultes[mess]);
+		if(user.id === '507258744309022721'){
+			message.reply(insultes[mess]);
+		}else{
+			message.channel.send(user+', '+insultes[mess]);
+		}
+		}else{
+			message.channel.send('coucou');
+		}
+        
 }
 
 };
