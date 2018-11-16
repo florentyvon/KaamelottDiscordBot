@@ -12,7 +12,8 @@ bot.registry
             .registerGroups([
                 ['random', 'random'],
                 ['citation', 'citation'],
-                ['insulte', 'insulte']
+                ['insulte', 'insulte'],
+                ['quizz','quizz']
             ])
             .registerDefaults()
             .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
