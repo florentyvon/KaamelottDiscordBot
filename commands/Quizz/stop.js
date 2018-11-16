@@ -19,9 +19,8 @@ module.exports = class StartCommand extends Command {
     */
     async run(message, { answer }) {  //args are parameter after name command
 
-        var msg = await message.channel.send("do you want to stop this quiz? \n react to vote");
+        var msg = await message.channel.send("do you want to stop this quiz? \n 👍 to vote for & 👎 to vote against");
         msg.react("👍");
         msg.react("👎");
-
     }
 };
