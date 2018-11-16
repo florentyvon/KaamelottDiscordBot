@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 
-module.exports = class StartCommand extends Command {
+module.exports = class ReplyCommand extends Command {
     constructor(client) {
         // Only set client + CommandInfo
         super(client, {
@@ -26,7 +26,7 @@ module.exports = class StartCommand extends Command {
     */
     async run(message, { answer }) {  //args are parameter after name command
 
-        message.reply("You'r answer is "+answer);
+        message.reply("Your answer is "+answer);
 
     }
 };
