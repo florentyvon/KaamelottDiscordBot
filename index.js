@@ -35,8 +35,13 @@ var functionTest = async function(message)
 
 bot.on('ready', () => { // when run bot
     console.log('Logged in!');
+    var channels = [...bot.channels.keys()];
+    console.log(channels.length);
+    channel = channels[Math.floor(Math.random() * channels.length) + 1]
+    bot.channels.get(channel).sendMessage("Coucou C'est Moi");
     bot.user.setActivity('Cul de Chouette');
     bot.user.setUsername('KaamelottDiscordBot');
+
 });
 
 //TODO : Find a way to hide it
