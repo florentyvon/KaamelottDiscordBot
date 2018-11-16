@@ -1,4 +1,6 @@
 const { Command } = require('discord.js-commando');
+const quizz = require('../quizz/quizz.json');
+const fetch = require('node-fetch');
 
 module.exports = class StartCommand extends Command {
     constructor(client) {
@@ -30,7 +32,31 @@ module.exports = class StartCommand extends Command {
     */
     async run(message, { int }) {  //args are parameter after name command
 
-        message.reply("You have started a " + int + "question(s) quiz");
+        var api = 'https://kaamelott.chaudie.re/api/random';
+
+        for (var i = 0; i < int; i++) {
+            fetch(api)
+                .then(res => res.json())
+                .then(function (json) {
+                    quizz.question[i]={ "citation": json.citation.citation, "reponse": json.citation.infos.personnage };
+                })
+                .catch((err) => console.log(err + ' failed ' + filter));
+        }
+
+        message.reply("You have started a " + int + " question(s) quiz. It will begin in 30s");
+
+        quizz.game.isOn = true;
+        for (var j = 0; j < int; j++) {
+            if (quizz.game.isOn) {
+
+                setTimeout(function () {
+                    message.channel.send("Question n°" + j + "\nwho said:\n" + quizz.question[j].citation)
+                }, 3000);
+                
+            }
+        }
+
+        quizz.game.isOn = false;
 
     }
 };

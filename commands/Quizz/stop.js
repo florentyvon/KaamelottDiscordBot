@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const quizz = require('../quizz/quizz.json');
 
 module.exports = class StopCommand extends Command {
     constructor(client) {
@@ -24,9 +25,10 @@ module.exports = class StopCommand extends Command {
         msg.react("👎");
         
         const reactions = await msg.awaitReactions(react=>react.emoji.name==="👍" || react.emoji.name=== "👎" , {time: 15000})
-        console.log(reactions);
 
-        message.channel.send(reactions.get("👍").count);
+        if(reactions.get("👍").count > reactions.get("👍").count){
+            quizz.game.isOn=false;
+        }
 
     }
 };

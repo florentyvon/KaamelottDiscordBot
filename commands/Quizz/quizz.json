@@ -1,0 +1,10 @@
+{
+    "game":{
+        "isOn":false,
+        "numberOfQuestion": 0,
+        "currentQuestion": 0
+    },
+    "question":[],
+    "score":[]
+
+}
