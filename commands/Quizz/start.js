@@ -38,25 +38,21 @@ module.exports = class StartCommand extends Command {
             fetch(api)
                 .then(res => res.json())
                 .then(function (json) {
-                    quizz.question[i]={ "citation": json.citation.citation, "reponse": json.citation.infos.personnage };
+                    quizz.question[i] = { "citation": json.citation.citation, "reponse": json.citation.infos.personnage };
                 })
                 .catch((err) => console.log(err + ' failed ' + filter));
         }
 
         message.reply("You have started a " + int + " question(s) quiz. It will begin in 30s");
-
+        let j = 0
         quizz.game.isOn = true;
-        for (var j = 0; j < int; j++) {
+        for (j; j < int; j++) {
             if (quizz.game.isOn) {
-
-                setTimeout(function () {
-                    message.channel.send("Question n°" + j + "\nwho said:\n" + quizz.question[j].citation)
-                }, 3000);
-                
+                 setTimeout(function () {
+                    message.channel.send("Question n°" + j + "\nwho said:\n" + quizz.question[j].citation);
+                }, 3000);                
             }
         }
-
         quizz.game.isOn = false;
-
     }
 };

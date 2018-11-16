@@ -35,6 +35,7 @@ module.exports = class ReplyCommand extends Command {
                 quizz.score[message.author.id] = quizz.score[message.author.id]+ 1;
             }
         }
+        message.reply("Wrong");
 
     }
 };
