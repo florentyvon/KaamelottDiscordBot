@@ -29,6 +29,11 @@ module.exports = class StopCommand extends Command {
         if(reactions.get("👍").count > reactions.get("👍").count){
             quizz.game.isOn=false;
         }
+        if(reactions.get("👍").count >= reactions.get("👎").count){
+            message.channel.send("Thought quiz was over ? It's a noooo ! Keep going on !")
+        }else{
+            message.channel.send("Democracy talked, quiz is over mates !")
+        }
 
     }
 };
