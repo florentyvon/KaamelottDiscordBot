@@ -19,14 +19,14 @@ module.exports = class StopCommand extends Command {
     */
     async run(message) {  //args are parameter after name command
 
-        var msg = await message.channel.send("do you want to stop this quiz? \n 👍 to vote for & 👎 to vote against");
+        var msg = await message.channel.send("do you want to stop this quiz? \n 👍 / 👎  \n End in 15 seconds ");
         msg.react("👍");
         msg.react("👎");
         
         const reactions = await msg.awaitReactions(react=>react.emoji.name==="👍" || react.emoji.name=== "👎" , {time: 15000})
         console.log(reactions);
 
-        message.channel.send(reactions['👍'].count);
+        message.channel.send(reactions.get("👍").count);
 
     }
 };
