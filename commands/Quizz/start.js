@@ -33,26 +33,48 @@ module.exports = class StartCommand extends Command {
     async run(message, { int }) {  //args are parameter after name command
 
         var api = 'https://kaamelott.chaudie.re/api/random';
-
-        for (var i = 0; i < int; i++) {
-            fetch(api)
+        let i = 1
+        for (i; i <= int; i++) {
+            await fetch(api)
                 .then(res => res.json())
                 .then(function (json) {
-                    quizz.question[i] = { "citation": json.citation.citation, "reponse": json.citation.infos.personnage };
+                    quizz.question.push({ "citation": json.citation.citation, "reponse": json.citation.infos.personnage });
                 })
                 .catch((err) => console.log(err + ' failed ' + filter));
+
         }
 
         message.reply("You have started a " + int + " question(s) quiz. It will begin in 30s");
-        let j = 0
         quizz.game.isOn = true;
-        for (j; j < int; j++) {
-            if (quizz.game.isOn) {
-                 setTimeout(function () {
-                    message.channel.send("Question n°" + j + "\nwho said:\n" + quizz.question[j].citation);
-                }, 3000);                
+        quizz.game.numberOfQuestion = int;
+
+        for (let j in quizz.question) {
+            if (quizz.game.isOn) {     
+                
+                let promise = new Promise((resolve, reject) => {
+                    setTimeout(() => resolve("done!"), 30000)
+                  });                  
+                  let result = await promise; // wait till the promise resolves
+                  quizz.game.currentQuestion++;
+                  message.channel.send("Question n°" + j  + "\nwho said:\n" + quizz.question[j].citation);
+                  message.channel.send(quizz.question[j].reponse);//To allow test
+
             }
         }
         quizz.game.isOn = false;
+        resetJson();
     }
 };
+
+function resetJson() {
+    quizz={
+        "game":{
+            "isOn":false,
+            "numberOfQuestion": 0,
+            "currentQuestion": -1
+        },
+        "question":[],
+        "score":[]
+    
+    };
+}

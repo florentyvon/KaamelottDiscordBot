@@ -27,15 +27,22 @@ module.exports = class ReplyCommand extends Command {
     */
     async run(message, { answer }) {  //args are parameter after name command
 
-        if (quizz.game.isOn && answer === quizz.question.currentQuestion.reponse){
-            message.reply("Well done, the answer was inded: " + answer+"\n ");
-            if( !quizz.score.get[message.author.id]){
-                quizz.score[message.author.id]= 1;
-            }else{
-                quizz.score[message.author.id] = quizz.score[message.author.id]+ 1;
+        if (quizz.game.isOn && answer === quizz.question[quizz.game.currentQuestion].reponse) {
+            message.reply("Well done, the answer was inded: " + answer + "\n ");
+            if (!quizz.score[message.author.id]) {
+                quizz.score[message.author.id] = 1;
+            } else {
+                quizz.score[message.author.id] = quizz.score[message.author.id] + 1;
             }
+            //Affichage du score
+            for (let k in quizz.score) {
+                let user = message.client.users.get(k);
+                message.channel.send(user + ', Your score is: ' + quizz.score[k]);
+            }
+        } else {
+            message.reply("Wrong");
         }
-        message.reply("Wrong");
+
 
     }
 };

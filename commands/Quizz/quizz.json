@@ -2,7 +2,7 @@
     "game":{
         "isOn":false,
         "numberOfQuestion": 0,
-        "currentQuestion": 0
+        "currentQuestion": -1
     },
     "question":[],
     "score":[]
