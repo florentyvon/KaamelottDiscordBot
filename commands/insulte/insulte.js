@@ -28,11 +28,6 @@ module.exports = class RandomInsulteCommand extends commando.Command{
         }); 
     }
 
-    // activated when "!run" is send in channel
-    /*
-    * WARNING : Node support async method but must specify " --harmony " when run the app
-    * so it become : node --harmony . 
-    */
     async run(message, { user, id }) {
 		//var nb = Object.keys(insultes).length;
         // var mess = Math.floor(Math.random() * nb)+1;

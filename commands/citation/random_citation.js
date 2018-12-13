@@ -32,13 +32,8 @@ module.exports = class RandomCitationCommand extends Command {
         });
     }
 
-    // activated when "!run" is send in channel
-    /*
-     * WARNING : Node support async method but must specify " --harmony " when run the app
-     * so it become : node --harmony . 
-     */
-    async run(message, { filter, value }) { //args are parameter after name command
-
+    async run(message, {filter, value}){  //args are parameter after name command
+        
         var api = 'https://kaamelott.chaudie.re/api';
         switch (filter) {
             case "-l":

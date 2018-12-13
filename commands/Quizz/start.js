@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const quizz = require('../quizz/quizz.json');
 const fetch = require('node-fetch');
+const discord = require('discord.js')
 
 module.exports = class StartCommand extends Command {
     constructor(client) {
@@ -25,13 +26,13 @@ module.exports = class StartCommand extends Command {
         });
     }
 
-    // activated when "!run" is send in channel
-    /*
-    * WARNING : Node support async method but must specify " --harmony " when run the app
-    * so it become : node --harmony . 
-    */
-    async run(message, { int }) {  //args are parameter after name command
+    async run(message, { int }) {
+        if (quizz.game.isOn) {  //not 2 games in parallel
+            message.channel.send("```Game is already started.```");
+            return;
+        }
 
+        var self = this;
         var api = 'https://kaamelott.chaudie.re/api/random';
         let i = 1
         for (i; i <= int; i++) {
@@ -41,40 +42,73 @@ module.exports = class StartCommand extends Command {
                     quizz.question.push({ "citation": json.citation.citation, "reponse": json.citation.infos.personnage });
                 })
                 .catch((err) => console.log(err + ' failed ' + filter));
-
         }
 
-        message.reply("You have started a " + int + " question(s) quiz. It will begin in 30s");
+        var embed = new discord.RichEmbed()
+            .setTitle("Game Starting")
+            .setDescription("You have started a " + int + " question(s) quiz. It will begin in 10s and you have the same time to answer each question.")
+            .setColor(0x0000FF);
+        message.channel.send(embed);
+
         quizz.game.isOn = true;
         quizz.game.numberOfQuestion = int;
+        new Promise((resolve, reject) => {
+            setTimeout(() => resolve("done!"), 10000)
+        })
+            .then(async function () {
+                for (let j in quizz.question) {
+                    quizz.game.questionToAnswer.currentQuestion++;
+                    quizz.game.questionToAnswer.answered = false;
+                    message.channel.send("```Question n°" + j + "\nwho said:\n" + quizz.question[j].citation + "```"+ quizz.question[j].reponse);
+                    //message.channel.send(quizz.question[j].reponse);//To allow test
+                    let promise = new Promise((resolve, reject) => {
+                        setTimeout(() => resolve("done!"), 10000)
+                    });
+                    await promise; // wait till the promise resolves
+                }
+                self.endGame(message);
+            })
+            .catch(function (error) { console.log(error) });
+    }
 
-        for (let j in quizz.question) {
-            if (quizz.game.isOn) {     
-                
-                let promise = new Promise((resolve, reject) => {
-                    setTimeout(() => resolve("done!"), 30000)
-                  });                  
-                  let result = await promise; // wait till the promise resolves
-                  quizz.game.currentQuestion++;
-                  message.channel.send("Question n°" + j  + "\nwho said:\n" + quizz.question[j].citation);
-                  message.channel.send(quizz.question[j].reponse);//To allow test
-
-            }
-        }
+    resetJson() {
         quizz.game.isOn = false;
-        resetJson();
+        quizz.game.numberOfQuestion = 0;
+        quizz.game.questionToAnswer.currentQuestion = -1;
+        quizz.game.questionToAnswer.answered = false;
+        quizz.question = [];
+        quizz.score = [];
+    }
+
+    displayFinalScore(messageInstance) {
+        var embed = new discord.RichEmbed();
+
+        if (Object.keys(quizz.score).length <= 0) {
+            embed.setTitle("Big deception")
+                 .setDescription("No one participate so no one win!")
+                 .setColor(0xFF0000);
+            messageInstance.channel.send(embed);
+            return;
+        }
+
+        let scores = quizz.score.sort(function (x, y) {
+           return x > y ? 1 : x < y ? 0 : -1
+        });
+
+        var placeCounter = 1;
+        embed.setTitle("Final Scores")
+             .setColor(0x00FF00);
+
+        for (let k in scores) {
+            var user = messageInstance.client.users.get(k);
+            embed.addField(placeCounter+++ ".", user + " (score : " + quizz.score[k] + ")");
+        }             
+        messageInstance.channel.send(embed);
+    }
+
+    endGame(messageInstance) {
+
+        this.displayFinalScore(messageInstance)
+        this.resetJson();
     }
 };
-
-function resetJson() {
-    quizz={
-        "game":{
-            "isOn":false,
-            "numberOfQuestion": 0,
-            "currentQuestion": -1
-        },
-        "question":[],
-        "score":[]
-    
-    };
-}

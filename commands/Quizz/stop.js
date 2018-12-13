@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const quizz = require('../quizz/quizz.json');
+const discord = require('discord.js')
 
 module.exports = class StopCommand extends Command {
     constructor(client) {
@@ -13,27 +14,38 @@ module.exports = class StopCommand extends Command {
         });
     }
 
-    // activated when "!run" is send in channel
-    /*
-    * WARNING : Node support async method but must specify " --harmony " when run the app
-    * so it become : node --harmony . 
-    */
     async run(message) {  //args are parameter after name command
+        var embed = new discord.RichEmbed();
 
-        var msg = await message.channel.send("do you want to stop this quiz? \n 👍 / 👎  \n End in 15 seconds ");
-        msg.react("👍");
-        msg.react("👎");
+        if(!quizz.game.isOn) { 
+            embed.setTitle("Command Failed")
+                 .setDescription(message.author + "Game is not started.")
+                 .setColor(0xFF0000);
+            message.channel.send(embed)
+            return; 
+        }
+
+        embed.setTitle("Game Stop")
+             .setDescription("Do you want to stop this quiz? \n👍 / 👎\nEnd in 15 seconds")
+             .setColor(0x0000FF);
+        var msg = await message.channel.send(embed);
+        await msg.react("👍");
+        await msg.react("👎");
         
         const reactions = await msg.awaitReactions(react=>react.emoji.name==="👍" || react.emoji.name=== "👎" , {time: 15000})
 
-        if(reactions.get("👍").count > reactions.get("👍").count){
-            quizz.game.isOn=false;
-        }
         if(reactions.get("👍").count >= reactions.get("👎").count){
-            message.channel.send("Thought quiz was over ? It's a noooo ! Keep going on !")
+            quizz.game.isOn=false;
+            embed.setTitle("Game End")
+                 .setDescription("Democracy talked, quiz is over mates !")
+                 .setColor(0x0000FF);
+            message.channel.send(embed);
         }else{
-            message.channel.send("Democracy talked, quiz is over mates !")
+            
+            embed.setTitle("Game Continue")
+                 .setDescription("Thought quiz was over ? It's a noooo ! Keep going on !")
+                 .setColor(0x0000FF);
+            message.channel.send(embed);            
         }
-
     }
 };
