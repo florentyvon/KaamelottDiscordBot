@@ -18,7 +18,11 @@ Aloïs BRETAUDEAU, Mickaël MENEUX, Julien RAILLARD, Florent YVON
 ```
 npm install --save
 ```
-2. To run the bot, due to async method : 
+2. To permit the bot to talk in voice channels :
+    Install [ffmpeg](https://ffmpeg.org/download.html) for your OS
+    Make it permanent on your server or computer
+
+3. To run the bot, due to async method : 
 ```
 node --harmony .
 ```
