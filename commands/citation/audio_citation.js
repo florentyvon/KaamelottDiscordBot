@@ -111,10 +111,3 @@ module.exports = class RandomCitationCommand extends Command {
             .catch(console.error)
     }
 };
-
-function CitationToString(json) {
-    return "\" " + json.citation.citation +
-        " \"\nPersonnage : " + json.citation.infos.personnage +
-        "\n" + json.citation.infos.saison +
-        "\nEpisode : " + json.citation.infos.episode;
-}
