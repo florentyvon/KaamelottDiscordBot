@@ -1,8 +1,9 @@
 const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
 const sounds = require('./sounds.json');
+const path = require('path');
 
-module.exports = class RandomCitationCommand extends Command {
+module.exports = class RandomAudioCitationCommand extends Command {
     constructor(client) {
         // Only set client + CommandInfo
         super(client, {
@@ -40,6 +41,24 @@ module.exports = class RandomCitationCommand extends Command {
      */
     async run(message, { filter, value }) { //args are parameter after name command
         let toplay = [];
+        let pathArray = []
+        let pathName = __dirname;
+        let soundsPath = "";
+        var BreakException = {};
+        pathArray = pathName.split(path.sep);
+        if (pathArray[pathArray.length - 1] === "citation" && pathArray[pathArray.length - 2] === "commands") {
+            try {
+                pathArray.forEach(function (element) {
+                    if (element === "commands") {
+                        throw BreakException;
+                    }
+                    soundsPath += element + path.sep;
+                });
+            } catch (e) {
+                if (e !== BreakException) throw e;
+            }
+            soundsPath += "sounds" + path.sep;
+        }
         switch (filter) {
             case "-l":
                 switch (value) {
@@ -91,7 +110,7 @@ module.exports = class RandomCitationCommand extends Command {
             default:
                 Object.keys(sounds).forEach(element => {
                     var ind = Math.floor((Math.random()));
-                    if(ind){
+                    if (ind) {
                         toplay.push(sounds[element]['file']);
                     }
                 });
@@ -102,10 +121,10 @@ module.exports = class RandomCitationCommand extends Command {
 
         var VC = message.member.voiceChannel;
         if (!VC)
-            return message.reply("MESSAGE IF NOT IN A VOICE CHANNEL")
+            return message.reply("Join a voice channel, NEWBIE !");
         VC.join()
             .then(connection => {
-                const dispatcher = connection.playFile('C:/Users/Florent YVON/Documents/projects/KaamelottDiscordBot/sounds/' + toplay[ind]);
+                const dispatcher = connection.playFile(soundsPath + toplay[ind]);
                 dispatcher.on("end", end => { VC.leave() });
             })
             .catch(console.error)
