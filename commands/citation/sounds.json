@@ -96,6 +96,126 @@
     "file": "ca_va_un_peu_trop_vite_pour_moi.mp3"
   },
   {
+    "character": "Karadoc",
+    "ep_title": "La grande bataille",
+    "episode": "78",
+    "book": 3,
+    "title": "Oh le con, mais il est pas fini d'affiner",
+    "file": "oh_le_con_pas_fini_affiner.mp3"
+  },
+  {
+    "character": "Perceval",
+    "ep_title": "L'épée des rois",
+    "episode": "",
+    "book": 5,
+    "title": "Alors le cageot il dit merci et il ferme sa boite à caca",
+    "file": "boite_a_caca.mp3"
+  },
+  {
+    "character": "Perceval",
+    "ep_title": "Aux Yeux De Tous II",
+    "episode": "",
+    "book": 3,
+    "title": "Elle va pas me gonfler longtemps la rouquine",
+    "file": "gonfler_longtemps_rouquine.mp3"
+  },
+  {
+    "character": "Elias de Kelliwic'h",
+    "ep_title": "Anges et Démons",
+    "episode": "50",
+    "book": 4,
+    "title": "Mous de la Tige",
+    "file": "mous_tige.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Corpore Sano II",
+    "episode": "82",
+    "book": 4,
+    "title": "C'est à coincer les parties dans une porte",
+    "file": "coincer_parties_porte.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Les classes de Bohort",
+    "episode": "35",
+    "book": 2,
+    "title": "Ras le bol de votre comportement de péteux",
+    "file": "comportement_peteux.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Les classes de Bohort",
+    "episode": "35",
+    "book": 2,
+    "title": "Magnez-vous le fion, espèce de grosse dinde",
+    "file": "magnez_vous_fion_espece_de_grosse_dinde.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Corpore Sano II",
+    "episode": "82",
+    "book": 4,
+    "title": "ALLEZ, EN GARDE GROSSE CONNE",
+    "file": "en_garde_grosse_conne.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Corpore Sano II",
+    "episode": "82",
+    "book": 4,
+    "title": "Du nerf, mon lapinou !… Vous allez vous faire tailler le zizi en pointe !",
+    "file": "nerf_lapinou_zizi_pointe.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Corpore Sano II",
+    "episode": "82",
+    "book": 4,
+    "title": "Est une p'tite à la volette, est une p'tite à la volette, est une p'tite tapette.",
+    "file": "ptite_tapette.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Le Maître d'Armes",
+    "episode": "9",
+    "book": 1,
+    "title": "HAHA, Sire ! Je vous attends ! À moins que vous préfériez que l’on dise partout que le roi est une petite pédale qui pisse dans son froc à l’idée de se battre !",
+    "file": "sire_petite_pedale_pisse_froc.mp3"
+  },
+  {
+    "character": "Le Jurisconsulte",
+    "ep_title": "Le Jurisconsulte",
+    "episode": "27",
+    "book": 5,
+    "title": "Peau de vache.",
+    "file": "peau_de_vache.mp3"
+  },
+  {
+    "character": "Le Jurisconsulte",
+    "ep_title": "Le Jurisconsulte",
+    "episode": "27",
+    "book": 5,
+    "title": "BANDE DE TROUS DU CUL !!!",
+    "file": "bande_de_trous_du_cul.mp3"
+  },
+  {
+    "character": "Le Jurisconsulte",
+    "ep_title": "Le Jurisconsulte",
+    "episode": "27",
+    "book": 5,
+    "title": "Z'êtes un glandeur. Un gros... GLANDEUR !!!",
+    "file": "glandeur_gros_glandeur.mp3"
+  },
+  {
+    "character": "Le Maître d'Armes",
+    "ep_title": "Le Maître d'Armes",
+    "episode": "9",
+    "book": 1,
+    "title": "HAHA, Sire ! Je vous attends ! À moins que vous préfériez que l’on dise partout que le roi est une petite pédale qui pisse dans son froc à l’idée de se battre !",
+    "file": "sire_petite_pedale_pisse_froc.mp3"
+  },
+  {
     "character": "Bohort",
     "ep_title": "Arthur et la Question",
     "episode": "10",

@@ -29,7 +29,7 @@ module.exports = class DiceRollCommand extends Command{
     * so it become : node --harmony . 
     */
     async run(message, {int}){  //args are parameter after name command
-            var roll = Math.floor(Math.random() * 6) + 1;
+            let roll = Math.floor(Math.random() * 6) + 1;
             if(roll === int){
                 message.reply("Congratulations ! You rolled a " + roll + " (1 - 6) as you wanted !");
             }else{

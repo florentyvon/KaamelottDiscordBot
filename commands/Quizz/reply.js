@@ -22,7 +22,7 @@ module.exports = class ReplyCommand extends Command {
     }
 
     async run(message, { answer }) {  //args are parameter after name command
-        var embed = new discord.RichEmbed();
+        let embed = new discord.RichEmbed();
 
         if (!quizz.game.isOn) {
             embed.setTitle("Command Failed")
@@ -52,7 +52,7 @@ module.exports = class ReplyCommand extends Command {
             } else {
                 quizz.score[message.author.id] = quizz.score[message.author.id] + 1;
             }
-            var authorName = message.author;
+            let authorName = message.author;
             // answer to player
             /*message.channel.send("Well done " + message.author + " , the answer was inded: " + answer + 
                                     "\n Your score is now : " + quizz.score[message.author.id]);

@@ -32,8 +32,8 @@ module.exports = class StartCommand extends Command {
             return;
         }
 
-        var self = this;
-        var api = 'https://kaamelott.chaudie.re/api/random';
+        let self = this;
+        let api = 'https://kaamelott.chaudie.re/api/random';
         let i = 1
         for (i; i <= int; i++) {
             await fetch(api)
@@ -44,7 +44,7 @@ module.exports = class StartCommand extends Command {
                 .catch((err) => console.log(err + ' failed ' + filter));
         }
 
-        var embed = new discord.RichEmbed()
+        let embed = new discord.RichEmbed()
             .setTitle("Game Starting")
             .setThumbnail('https://i.imgur.com/P2HEOcH.png')
             .setDescription("You have started a " + int + " question(s) quiz. It will begin in 10s and you have the same time to answer each question.")
@@ -85,7 +85,7 @@ module.exports = class StartCommand extends Command {
     }
 
     displayFinalScore(messageInstance) {
-        var embed = new discord.RichEmbed();
+        let embed = new discord.RichEmbed();
 
         if (Object.keys(quizz.score).length <= 0) {
             embed.setTitle("Big deception")
@@ -99,13 +99,13 @@ module.exports = class StartCommand extends Command {
             return x > y ? 1 : x < y ? 0 : -1
         });
 
-        var placeCounter = 1;
+        let placeCounter = 1;
         embed.setTitle("Final Scores")
             .setColor(0x00FF00)
             .setThumbnail('https://i.imgur.com/P2HEOcH.png');
 
         for (let k in scores) {
-            var user = messageInstance.client.users.get(k);
+            let user = messageInstance.client.users.get(k);
             embed.addField(placeCounter++ + ".", user + " (score : " + quizz.score[k] + ")");
         }
         messageInstance.channel.send(embed);

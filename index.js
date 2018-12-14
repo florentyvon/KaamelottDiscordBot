@@ -19,14 +19,14 @@ bot.registry
     .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
 
 bot.on('message', (message) => functionTest(message));
-var functionTest = async function(message) {
+let functionTest = async function(message) {
     if (message.content == 'Comment t\'es ce soir ?') {
         //message.reply('pong');
         //msg.reply(`Hello! ${emoji}`);
 
         // const emoji = message.guild.emojis.first(); 
         // message.channel.send(`Déchainé moi, déchainé !!! ${emoji}`);
-        var msg = await message.channel.send("Déchainé moi, déchainé !!!");
+        let msg = await message.channel.send("Déchainé moi, déchainé !!!");
         msg.react("👍");
         msg.react("👎");
     }
@@ -34,7 +34,7 @@ var functionTest = async function(message) {
 
 bot.on('ready', () => { // when run bot
     console.log('Logged in!');
-    var channels = [...bot.channels.keys()];
+    let channels = [...bot.channels.keys()];
     channel = channels[Math.floor(Math.random() * channels.length)];
     while (bot.channels.get(channel).type === "voice") {
         channel = channels[Math.floor(Math.random() * channels.length)];
@@ -42,6 +42,7 @@ bot.on('ready', () => { // when run bot
     bot.channels.get(channel).send("Tavernier ! Une pinte pour la soif !");
     bot.user.setActivity('Cul de Chouette');
     bot.user.setUsername('KaamelottDiscordBot');
+    bot.user.setAvatar('Kaamelott.png');
 });
 
 //TODO : Find a way to hide it

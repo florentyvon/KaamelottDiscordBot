@@ -29,11 +29,11 @@ module.exports = class RandomAudioCitationCommand extends Command {
     async run(message, { filter, value }) { //args are parameter after name command
         let toplay = [];
         let toplaytemp = [];
-        let pathArray = []
+        let pathArray = [];
         let pathName = __dirname;
         let soundsPath = "";
         let dict = ParseArgs(message.argString); //parsing the arguments
-        var BreakException = {};
+        let BreakException = {};
         pathArray = pathName.split(path.sep);
         if (pathArray[pathArray.length - 1] === "citation" && pathArray[pathArray.length - 2] === "commands") {
             try {
@@ -51,8 +51,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
         Object.keys(sounds).forEach(element => {
             toplay.push(sounds[element]);
         });
-        console.log(toplay);
-        if (dict['l'] & dict['l']>0 & dict['l']<=6) {
+        if (dict['l'] && dict['l']>0 && dict['l']<=6) {
             toplay.forEach(element => {
                 if (element['book'] === parseInt(dict['l'])) {
                     toplaytemp.push(element);
@@ -60,7 +59,6 @@ module.exports = class RandomAudioCitationCommand extends Command {
             });
             toplay = toplaytemp.slice(0);
         }
-        console.log(toplay);
         if(dict['p']){
             toplay.forEach(element => {
                 if (element['character'].toLowerCase().includes(dict['p'].toLowerCase())) {
@@ -69,12 +67,11 @@ module.exports = class RandomAudioCitationCommand extends Command {
             });
             toplay = toplaytemp.slice(0);
         }
-        console.log(toplay);
         
 
-        var ind = Math.floor((Math.random() * toplay.length));
+        let ind = Math.floor((Math.random() * toplay.length));
 
-        var VC = message.member.voiceChannel;
+        let VC = message.member.voiceChannel;
         if (!VC){
             let embed = new discord.RichEmbed();
                 embed
@@ -84,8 +81,6 @@ module.exports = class RandomAudioCitationCommand extends Command {
         }
         VC.join()
             .then(connection => {
-                console.log("bite");
-                console.log(toplay[ind]);
                 const dispatcher = connection.playFile(soundsPath + toplay[ind]['file']);
                 dispatcher.on("end", end => { VC.leave() });
             })
@@ -101,11 +96,8 @@ function ParseArgs(message){
     args.forEach(element => {
         element.trim();
     });
-    console.log(message);
-    console.log(args);
     let dict = {};
-    args.map(item =>{ var [k,v] = item.split(' '); 
+    args.map(item =>{ let [k,v] = item.split(' '); 
                 dict[k] = v;})
-    console.log(dict)
     return dict;
 }

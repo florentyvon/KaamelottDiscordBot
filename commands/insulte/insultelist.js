@@ -8,6 +8,7 @@ module.exports = class RandomInsulteCommand extends commando.Command{
         super(client, {
             name: 'insultelist',
             group: 'insulte', 
+            aliases:['il'],
             memberName: 'insultelist',
             description: 'Get insults list', 
             examples: [ 'k!insulteslist' ], // string array with different using  (Not Necessary)
@@ -20,7 +21,6 @@ module.exports = class RandomInsulteCommand extends commando.Command{
             tosend += element + " : " + insultes[element] + "\n";
         });
         tosend += 'Try k!insulte @user insult_ID'
-        message.delete();
         let embed = new discord.RichEmbed();
         embed
         .setAuthor(message.author.username,message.author.avatarURL)

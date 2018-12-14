@@ -13,7 +13,8 @@ module.exports = class RandomCitationCommand extends Command {
             examples: [
                 'ttscitation (aucun filtre)',
                 'ttscitation -l @numeroDeLivre (filtre sur un livre compris entre 1 et 6)',
-                'ttscitation -p @nomPersonnage (filtre sur le personnage)'
+                'ttscitation -p @nomPersonnage (filtre sur le personnage)',
+                'ttscitation -l @numeroDeLivre (1 à 6) -p @nomDuPersonnage'
             ]
         });
     }
@@ -25,24 +26,21 @@ module.exports = class RandomCitationCommand extends Command {
      */
     async run(message, { filter, value }) { //args are parameter after name command
         let dict = ParseArgs(message.argString); //parsing the arguments
-        var api = 'https://kaamelott.chaudie.re/api/random';
+        let api = 'https://kaamelott.chaudie.re/api/random';
         if(dict['l']) api = api.concat("/livre/" + dict['l']);
         if(dict['p']) api = api.concat("/personnage/" + dict['p']);
 
         fetch(api)
             .then(res => res.json())
             .then(function(json) {
-                message.reply(CitationToString(json),{tts: true});
+                message.channel.send(CitationToString(json),{tts: true});
             })
             .catch((err) => console.log(err + ' failed ' + filter));
     }
 };
 
 function CitationToString(json) {
-    return "\" " + json.citation.citation +
-        " \"\nPersonnage : " + json.citation.infos.personnage +
-        "\n" + json.citation.infos.saison +
-        "\nEpisode : " + json.citation.infos.episode;
+    return json.citation.citation + " comme " + json.citation.infos.personnage + " dans l'épisode "+json.citation.infos.episode+", du "+json.citation.infos.saison;
 };
 
 function ParseArgs(message){
@@ -51,11 +49,8 @@ function ParseArgs(message){
     args.forEach(element => {
         element.trim();
     });
-    console.log(message);
-    console.log(args);
     let dict = {};
-    args.map(item =>{ var [k,v] = item.split(' '); 
+    args.map(item =>{ let [k,v] = item.split(' '); 
                 dict[k] = v;})
-    console.log(dict)
     return dict;
 }

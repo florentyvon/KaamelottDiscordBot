@@ -15,7 +15,7 @@ module.exports = class StopCommand extends Command {
     }
 
     async run(message) {  //args are parameter after name command
-        var embed = new discord.RichEmbed();
+        let embed = new discord.RichEmbed();
 
         if(!quizz.game.isOn) { 
             embed.setTitle("Command Failed")
@@ -28,7 +28,7 @@ module.exports = class StopCommand extends Command {
         embed.setTitle("Game Stop")
              .setDescription("Do you want to stop this quiz? \n👍 / 👎\nEnd in 15 seconds")
              .setColor(0x0000FF);
-        var msg = await message.channel.send(embed);
+        let msg = await message.channel.send(embed);
         await msg.react("👍");
         await msg.react("👎");
         

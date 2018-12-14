@@ -21,9 +21,8 @@ module.exports = class RandomCitationCommand extends Command {
     }
 
     async run(message){ 
-        console.log(message);
         let dict = ParseArgs(message.argString); //parsing the arguments
-        var api = 'https://kaamelott.chaudie.re/api/random';
+        let api = 'https://kaamelott.chaudie.re/api/random';
         if(dict['l']) api = api.concat("/livre/" + dict['l']);
         if(dict['p']) api = api.concat("/personnage/" + dict['p']);
 
@@ -55,11 +54,8 @@ function ParseArgs(message){
     args.forEach(element => {
         element.trim();
     });
-    console.log(message);
-    console.log(args);
     let dict = {};
-    args.map(item =>{ var [k,v] = item.split(' '); 
+    args.map(item =>{ let [k,v] = item.split(' '); 
                 dict[k] = v;})
-    console.log(dict)
     return dict;
 }
