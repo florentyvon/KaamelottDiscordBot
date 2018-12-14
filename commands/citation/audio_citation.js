@@ -28,6 +28,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
      */
     async run(message, { filter, value }) { //args are parameter after name command
         let toplay = [];
+        let toplaytemp = [];
         let pathArray = []
         let pathName = __dirname;
         let soundsPath = "";
@@ -47,28 +48,29 @@ module.exports = class RandomAudioCitationCommand extends Command {
             }
             soundsPath += "sounds" + path.sep;
         }
+        Object.keys(sounds).forEach(element => {
+            toplay.push(sounds[element]);
+        });
+        console.log(toplay);
         if (dict['l'] & dict['l']>0 & dict['l']<=6) {
-            Object.keys(sounds).forEach(element => {
-                if (sounds[element]['book'] === dict['l']) {
-                    toplay.push(sounds[element]['file']);
+            toplay.forEach(element => {
+                if (element['book'] === parseInt(dict['l'])) {
+                    toplaytemp.push(element);
                 }
             });
-        }else{  
-            if(dict['p']){
-                Object.keys(sounds).forEach(element => {
-                    if (sounds[element]['character'].toLowerCase().includes(dict['p'].toLowerCase())) {
-                        toplay.push(sounds[element]['file']);
-                    }
-                });
-            }else{
-                Object.keys(sounds).forEach(element => {
-                    var ind = Math.floor((Math.random()));
-                    if (ind) {
-                        toplay.push(sounds[element]['file']);
-                    }
-                });
-            }
+            toplay = toplaytemp.slice(0);
         }
+        console.log(toplay);
+        if(dict['p']){
+            toplay.forEach(element => {
+                if (element['character'].toLowerCase().includes(dict['p'].toLowerCase())) {
+                    toplaytemp.push(element);
+                }
+            });
+            toplay = toplaytemp.slice(0);
+        }
+        console.log(toplay);
+        
 
         var ind = Math.floor((Math.random() * toplay.length));
 
@@ -82,7 +84,9 @@ module.exports = class RandomAudioCitationCommand extends Command {
         }
         VC.join()
             .then(connection => {
-                const dispatcher = connection.playFile(soundsPath + toplay[ind]);
+                console.log("bite");
+                console.log(toplay[ind]);
+                const dispatcher = connection.playFile(soundsPath + toplay[ind]['file']);
                 dispatcher.on("end", end => { VC.leave() });
             })
             .catch(console.error)

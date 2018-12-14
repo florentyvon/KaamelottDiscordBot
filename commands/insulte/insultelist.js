@@ -1,5 +1,6 @@
 const commando = require('discord.js-commando');
 const insultes = require('./data.json');
+const discord = require('discord.js');
 
 module.exports = class RandomInsulteCommand extends commando.Command{
     constructor(client){
@@ -20,7 +21,12 @@ module.exports = class RandomInsulteCommand extends commando.Command{
         });
         tosend += 'Try k!insulte @user insult_ID'
         message.delete();
-        message.reply('Sent you a DM with infos');
+        let embed = new discord.RichEmbed();
+        embed
+        .setAuthor(message.author.username,message.author.avatarURL)
+        .setDescription('Sent you a DM with infos')
+        .setColor(0x00ae86);
+        message.channel.send(embed);
         message.author.send(tosend);
     }
 };
