@@ -46,9 +46,9 @@ module.exports = class StartCommand extends Command {
 
         var embed = new discord.RichEmbed()
             .setTitle("Game Starting")
-            .setThumbnail('https://images-na.ssl-images-amazon.com/images/I/91FN%2BQ3eaeL.png')
+            .setThumbnail('https://i.imgur.com/P2HEOcH.png')
             .setDescription("You have started a " + int + " question(s) quiz. It will begin in 10s and you have the same time to answer each question.")
-            .setColor(0x0000FF);
+            .setColor(0x33ccff);
         message.channel.send(embed);
 
         quizz.game.isOn = true;
@@ -60,7 +60,11 @@ module.exports = class StartCommand extends Command {
                 for (let j in quizz.question) {
                     quizz.game.questionToAnswer.currentQuestion++;
                     quizz.game.questionToAnswer.answered = false;
-                    message.channel.send("```Question n°" + j + "\nwho said:\n" + quizz.question[j].citation + "```" + quizz.question[j].reponse);
+                    let embed = new discord.RichEmbed()
+                        .setTitle("Question n°" + j)
+                        .setDescription("who said:\n" + quizz.question[j].citation + quizz.question[j].reponse)
+                        .setColor(0x33ccff);
+                    message.channel.send(embed);
                     let promise = new Promise((resolve, reject) => {
                         setTimeout(() => resolve("done!"), 10000)
                     });
@@ -98,7 +102,7 @@ module.exports = class StartCommand extends Command {
         var placeCounter = 1;
         embed.setTitle("Final Scores")
             .setColor(0x00FF00)
-            .setThumbnail('https://images-na.ssl-images-amazon.com/images/I/91FN%2BQ3eaeL.png');
+            .setThumbnail('https://i.imgur.com/P2HEOcH.png');
 
         for (let k in scores) {
             var user = messageInstance.client.users.get(k);
