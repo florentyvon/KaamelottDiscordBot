@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
 const discord = require('discord.js');
+const image = require('./ImagePersonnage.json')
 
 module.exports = class RandomCitationCommand extends Command {
     constructor(client) {
@@ -32,6 +33,7 @@ module.exports = class RandomCitationCommand extends Command {
                 let embed = new discord.RichEmbed();
                 embed
                 .setAuthor(message.author.username,message.author.avatarURL)
+                .setThumbnail(image[json.citation.infos.personnage])
                 .setDescription(CitationToString(json))
                 .setColor(0x00ae86);
                 message.channel.send(embed);
