@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
 const sounds = require('./sounds.json');
 const path = require('path');
+const discord = require('discord.js');
 
 module.exports = class RandomAudioCitationCommand extends Command {
     constructor(client) {
@@ -72,8 +73,13 @@ module.exports = class RandomAudioCitationCommand extends Command {
         var ind = Math.floor((Math.random() * toplay.length));
 
         var VC = message.member.voiceChannel;
-        if (!VC)
-            return message.reply("Join a voice channel, NEWBIE !");
+        if (!VC){
+            let embed = new discord.RichEmbed();
+                embed
+                .setDescription("Join a voice channel, NEWBIE !")
+                .setColor(0x00ae86);
+            return message.channel.send(embed);
+        }
         VC.join()
             .then(connection => {
                 const dispatcher = connection.playFile(soundsPath + toplay[ind]);

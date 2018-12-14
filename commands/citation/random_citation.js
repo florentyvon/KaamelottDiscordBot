@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
+const discord = require('discord.js');
 
 module.exports = class RandomCitationCommand extends Command {
     constructor(client) {
@@ -19,6 +20,7 @@ module.exports = class RandomCitationCommand extends Command {
     }
 
     async run(message){ 
+        console.log(message);
         let dict = ParseArgs(message.argString); //parsing the arguments
         var api = 'https://kaamelott.chaudie.re/api/random';
         if(dict['l']) api = api.concat("/livre/" + dict['l']);
@@ -27,9 +29,14 @@ module.exports = class RandomCitationCommand extends Command {
         fetch(api)
             .then(res => res.json())
             .then(function(json) {
-                message.reply(CitationToString(json));
+                let embed = new discord.RichEmbed();
+                embed
+                .setAuthor(message.author.username,message.author.avatarURL)
+                .setDescription(CitationToString(json))
+                .setColor(0x00ae86);
+                message.channel.send(embed);
             })
-            .catch((err) => console.log(err + ' failed ' + filter));
+            .catch((err) => console.log(err + ' failed '));
     }
 };
 
