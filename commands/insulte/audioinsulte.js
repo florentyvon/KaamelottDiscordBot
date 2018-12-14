@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando');
 const insultes = require('./data.json');
-const sounds = require('./sounds.json');
+//const sounds = require('./sounds.json');
 const path = require('path');
 
 module.exports = class RandomAudioInsulteCommand extends commando.Command{
