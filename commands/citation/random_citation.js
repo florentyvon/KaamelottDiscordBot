@@ -13,7 +13,7 @@ module.exports = class RandomCitationCommand extends Command {
             examples: [
                 'citation (aucun filtre)',
                 'citation -l @numeroDeLivre (filtre sur un livre compris entre 1 et 6)',
-                'citation -a @nomPersonnage (filtre sur le personnage)'
+                'citation -p @nomPersonnage (filtre sur le personnage)'
             ]
         });
     }
@@ -21,9 +21,8 @@ module.exports = class RandomCitationCommand extends Command {
     async run(message){ 
         let dict = ParseArgs(message.argString); //parsing the arguments
         var api = 'https://kaamelott.chaudie.re/api/random';
-        if(dict['l']) api = api.concat("/livre/" + value);
-        if(dict['a']) api = api.concat("/personnage/" + value);
-        
+        if(dict['l']) api = api.concat("/livre/" + dict['l']);
+        if(dict['p']) api = api.concat("/personnage/" + dict['p']);
 
         fetch(api)
             .then(res => res.json())
@@ -49,8 +48,6 @@ function ParseArgs(message){
     });
     console.log(message);
     console.log(args);
-    
-    let command = args.shift().toLowerCase();
     let dict = {};
     args.map(item =>{ var [k,v] = item.split(' '); 
                 dict[k] = v;})
