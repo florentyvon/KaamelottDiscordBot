@@ -7,46 +7,23 @@ module.exports = class RandomCitationCommand extends Command {
         super(client, {
             name: 'citation',
             group: 'citation',
+            aliases: ['c'],
             memberName: 'citation',
             description: 'Renvoi une citation aléatoire.',
             examples: [
                 'citation (aucun filtre)',
                 'citation -l @numeroDeLivre (filtre sur un livre compris entre 1 et 6)',
                 'citation -a @nomPersonnage (filtre sur le personnage)'
-            ],
-            args: [{
-                    key: 'filter',
-                    prompt: 'Quel filtre souhaitez-vous? (-l pour livre ou -a pour auteur)',
-                    type: 'string',
-                    valide: filter => {
-                        if (filter === '-l' || filter === '-a' || filter === '') return true;
-                        return 'Filtre Erroné';
-                    }
-                },
-                {
-                    key: 'value',
-                    prompt: 'Parmi quel livre souhaitez-vous obtenir une citation?',
-                    type: 'string'
-                }
             ]
         });
     }
 
-    async run(message, {filter, value}){  //args are parameter after name command
+    async run(message){ 
+        let dict = ParseArgs(message); //parsing the arguments
+        var api = 'https://kaamelott.chaudie.re/api/random';
+        if(dict['l']) api = api.concat("/livre/" + value);
+        if(dict['a']) api = api.concat("/personnage/" + value);
         
-       console.log(message);
-        var api = 'https://kaamelott.chaudie.re/api';
-        switch (filter) {
-            case "-l":
-                api = api.concat("/random/livre/" + value);
-                break;
-            case "-a":
-                api = api.concat("/random/personnage/" + value);
-                break;
-            default:
-                api = api.concat("/random");
-                break;
-        }
 
         fetch(api)
             .then(res => res.json())
@@ -65,9 +42,11 @@ function CitationToString(json) {
 };
 
 function ParseArgs(message){
-    const args = message.content.slice(config.prefix.length).split('-').trim();
-    let dict = {};
-    
-    args.forEach(item =>{ var [k,v] = item.split(' '); dict[k] = v;})
+    const args = message.content.slice(prefix.length).split('-').trim();
     const command = args.shift().toLowerCase();
+    let dict = {};
+    args.map(item =>{ var [k,v] = item.split(' '); 
+                if(dict[k]) return false;
+                dict[k] = v;})
+    return dict;
 }
