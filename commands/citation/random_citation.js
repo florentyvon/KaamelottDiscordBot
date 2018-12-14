@@ -34,6 +34,7 @@ module.exports = class RandomCitationCommand extends Command {
 
     async run(message, {filter, value}){  //args are parameter after name command
         
+       console.log(message);
         var api = 'https://kaamelott.chaudie.re/api';
         switch (filter) {
             case "-l":
@@ -62,3 +63,11 @@ function CitationToString(json) {
         "\n" + json.citation.infos.saison +
         "\nEpisode : " + json.citation.infos.episode;
 };
+
+function ParseArgs(message){
+    const args = message.content.slice(config.prefix.length).split('-').trim();
+    let dict = {};
+    
+    args.forEach(item =>{ var [k,v] = item.split(' '); dict[k] = v;})
+    const command = args.shift().toLowerCase();
+}
