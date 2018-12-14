@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const quizz = require('../quizz/quizz.json');
 const fetch = require('node-fetch');
-const discord = require('discord.js')
+const discord = require('discord.js');
 
 module.exports = class StartCommand extends Command {
     constructor(client) {
@@ -46,6 +46,7 @@ module.exports = class StartCommand extends Command {
 
         var embed = new discord.RichEmbed()
             .setTitle("Game Starting")
+            .setThumbnail('https://images-na.ssl-images-amazon.com/images/I/91FN%2BQ3eaeL.png')
             .setDescription("You have started a " + int + " question(s) quiz. It will begin in 10s and you have the same time to answer each question.")
             .setColor(0x0000FF);
         message.channel.send(embed);
@@ -59,8 +60,7 @@ module.exports = class StartCommand extends Command {
                 for (let j in quizz.question) {
                     quizz.game.questionToAnswer.currentQuestion++;
                     quizz.game.questionToAnswer.answered = false;
-                    message.channel.send("```Question n°" + j + "\nwho said:\n" + quizz.question[j].citation + "```"+ quizz.question[j].reponse);
-                    //message.channel.send(quizz.question[j].reponse);//To allow test
+                    message.channel.send("```Question n°" + j + "\nwho said:\n" + quizz.question[j].citation + "```" + quizz.question[j].reponse);
                     let promise = new Promise((resolve, reject) => {
                         setTimeout(() => resolve("done!"), 10000)
                     });
@@ -85,24 +85,25 @@ module.exports = class StartCommand extends Command {
 
         if (Object.keys(quizz.score).length <= 0) {
             embed.setTitle("Big deception")
-                 .setDescription("No one participate so no one win!")
-                 .setColor(0xFF0000);
+                .setDescription("No one participate so no one win!")
+                .setColor(0xFF0000);
             messageInstance.channel.send(embed);
             return;
         }
 
         let scores = quizz.score.sort(function (x, y) {
-           return x > y ? 1 : x < y ? 0 : -1
+            return x > y ? 1 : x < y ? 0 : -1
         });
 
         var placeCounter = 1;
         embed.setTitle("Final Scores")
-             .setColor(0x00FF00);
+            .setColor(0x00FF00)
+            .setThumbnail('https://images-na.ssl-images-amazon.com/images/I/91FN%2BQ3eaeL.png');
 
         for (let k in scores) {
             var user = messageInstance.client.users.get(k);
-            embed.addField(placeCounter+++ ".", user + " (score : " + quizz.score[k] + ")");
-        }             
+            embed.addField(placeCounter++ + ".", user + " (score : " + quizz.score[k] + ")");
+        }
         messageInstance.channel.send(embed);
     }
 
