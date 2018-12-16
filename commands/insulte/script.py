@@ -19,7 +19,7 @@ print(databis)
 
 
 
-with open('C:/Users/Florent YVON/Documents/projects/KaamelottDiscordBot/commands/insulte/sounds.json', 'w') as outfile:
+with open('C:/Users/Florent YVON/Documents/projects/KaamelottDiscordBot/commands/insulte/insultstemp.json', 'w') as outfile:
     outfile.write(json.dumps(databis, ensure_ascii=False))
 
 json_data.close()

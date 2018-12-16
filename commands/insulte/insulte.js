@@ -1,5 +1,5 @@
 const commando = require('discord.js-commando');
-const insultes = require('./data.json');
+const insultes = require('./insults.json');
 
 module.exports = class RandomInsulteCommand extends commando.Command{
     constructor(client){

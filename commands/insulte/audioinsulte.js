@@ -1,6 +1,5 @@
 const commando = require('discord.js-commando');
-const insultes = require('./data.json');
-const sounds = require('./sounds.json');
+const insultes = require('./insults.json');
 const path = require('path');
 const discord = require('discord.js');
 
@@ -61,7 +60,7 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
             VC.forEach(element => {
                 if (element.type === 'voice' && VCm.id === element.id) {
                     if (element.members.has(user.id)) {
-                        toplay = sounds;
+                        toplay = insultes;
                         VCm.join()
                             .then(connection => {
                                 const dispatcher = connection.playFile(soundsPath + toplay[id]['audio']);

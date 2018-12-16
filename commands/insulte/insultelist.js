@@ -1,5 +1,5 @@
 const commando = require('discord.js-commando');
-const insultes = require('./data.json');
+const insultes = require('./insults.json');
 const discord = require('discord.js');
 
 module.exports = class RandomInsulteCommand extends commando.Command{
@@ -16,11 +16,11 @@ module.exports = class RandomInsulteCommand extends commando.Command{
     }
 
     async run(message) {
-        let tosend = "\n\ninsult_ID : insult_text\n";
+        let tosend = "insult_ID : insult_text\n";
         Object.keys(insultes).forEach(element => {
-            tosend += element + " : " + insultes[element] + "\n";
+            tosend += element + " : " + insultes[element]['text'] + "\n";
         });
-        tosend += 'Try k!insulte @user insult_ID'
+        tosend += 'Try k!insulte @user insult_ID or k!audioinsulte @user insult_ID'
         let embed = new discord.RichEmbed();
         embed
         .setAuthor(message.author.username,message.author.avatarURL)
