@@ -39,7 +39,7 @@ bot.on('ready', () => { // when run bot
     while (bot.channels.get(channel).type === "voice") {
         channel = channels[Math.floor(Math.random() * channels.length)];
     }
-    bot.channels.get(channel).send("Tavernier ! Une pinte pour la soif !");
+    bot.channels.get(channel).send("À ROULEEEEETTES !!");
     bot.user.setActivity('Cul de Chouette');
     bot.user.setUsername('KaamelottDiscordBot');
     bot.user.setAvatar('Kaamelott.png');
