@@ -47,14 +47,14 @@ module.exports = class StartCommand extends Command {
         let embed = new discord.RichEmbed()
             .setTitle("Game Starting")
             .setThumbnail('https://i.imgur.com/P2HEOcH.png')
-            .setDescription("You have started a " + int + " question(s) quiz. It will begin in 10s and you have the same time to answer each question.")
+            .setDescription("You have started a " + int + " question(s) quiz. It will begin in 30s and you have the same time to answer each question.")
             .setColor(0x33ccff);
         message.channel.send(embed);
 
         quizz.game.isOn = true;
         quizz.game.numberOfQuestion = int;
         new Promise((resolve, reject) => {
-            setTimeout(() => resolve("done!"), 10000)
+            setTimeout(() => resolve("done!"), 30000)
         })
             .then(async function () {
                 for (let j in quizz.question) {
@@ -62,11 +62,11 @@ module.exports = class StartCommand extends Command {
                     quizz.game.questionToAnswer.answered = false;
                     let embed = new discord.RichEmbed()
                         .setTitle("Question n°" + j)
-                        .setDescription("who said:\n" + quizz.question[j].citation + quizz.question[j].reponse)
+                        .setDescription("who said:\n" + quizz.question[j].citation)
                         .setColor(0x33ccff);
                     message.channel.send(embed);
                     let promise = new Promise((resolve, reject) => {
-                        setTimeout(() => resolve("done!"), 10000)
+                        setTimeout(() => resolve("done!"), 30000)
                     });
                     await promise; // wait till the promise resolves
                 }
