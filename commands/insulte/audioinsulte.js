@@ -5,8 +5,6 @@ const discord = require('discord.js');
 
 module.exports = class RandomAudioInsulteCommand extends commando.Command {
     constructor(client) {
-        let nb = Object.keys(insultes).length;
-        let mess = Math.floor(Math.random() * nb) + 1;
         // Only set client + CommandInfo
         super(client, {
             name: 'audioinsulte',
@@ -25,14 +23,20 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
                     key: 'id',
                     prompt: 'Do you want to send a precise insult ?',
                     type: 'integer',
-                    default: mess
+                    default: 0
                 }
             ]
         });
     }
 
     async run(message, { user, id }) {
-        //message.delete();
+        if(user == 'message.author'){
+            user = message.author;
+        }
+        if(id === 0){
+            let nb = Object.keys(insultes).length;
+            id = Math.floor(Math.random() * nb) + 1;
+        }
         let VCm = message.member.voiceChannel;
         let VC = [];
         let soundsPath = "";
@@ -55,7 +59,6 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
             soundsPath += "sounds" + path.sep;
         }
         VC = message.guild.channels;
-        VCm.join();
         //try {
             VC.forEach(element => {
                 if (element.type === 'voice' && VCm.id === element.id) {
@@ -78,7 +81,7 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
                 }
             });
         //} catch (e) {
-        //    if (e !== BreakException) throw e;
+            //if (e !== BreakException) throw e;
         //}
     }
 };
