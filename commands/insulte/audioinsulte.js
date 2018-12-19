@@ -56,7 +56,7 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
         }
         VC = message.guild.channels;
         VCm.join();
-        try {
+        //try {
             VC.forEach(element => {
                 if (element.type === 'voice' && VCm.id === element.id) {
                     if (element.members.has(user.id)) {
@@ -67,7 +67,7 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
                                 dispatcher.on("end", end => { VCm.leave() });
                             })
                             .catch(console.error);
-                        throw BreakException;
+                        //throw BreakException;
                     } else {
                         let embed = new discord.RichEmbed();
                         embed
@@ -77,8 +77,8 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
                     }
                 }
             });
-        } catch (e) {
-            if (e !== BreakException) throw e;
-        }
+        //} catch (e) {
+        //    if (e !== BreakException) throw e;
+        //}
     }
 };

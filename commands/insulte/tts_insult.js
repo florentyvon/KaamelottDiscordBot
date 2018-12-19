@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
+const insultes = require('./insults.json');
 
 module.exports = class RandominsultCommand extends Command {
     constructor(client) {
@@ -8,7 +9,7 @@ module.exports = class RandominsultCommand extends Command {
         // Only set client + CommandInfo
         super(client, {
             name: 'ttsinsult',
-            group: 'insult',
+            group: 'insulte',
             aliases: ['ti'],
             memberName: 'ttsinsult',
             description: 'Renvoi une insult aléatoire en tts.',
