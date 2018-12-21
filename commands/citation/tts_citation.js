@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
+const utils = require('../../Utilities/Utility');
 
 module.exports = class RandomCitationCommand extends Command {
     constructor(client) {
