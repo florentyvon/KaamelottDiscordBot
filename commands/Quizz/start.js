@@ -11,15 +11,18 @@ module.exports = class StartCommand extends Command {
             group: 'quizz',
             memberName: 'start',
             description: 'Start a quizz',
-            examples: ['k!start 1', 'Result :', 'You have started a 1 question quiz'], // string array with different using  (Not Necessary)
+            examples: ['k!start 1',
+             'Result :', 
+             'Vous avez commencez un quiz de 1 question(s)'],
+            //La commande nécessite un nombre de question.
             args: [
                 {
                     key: 'int',
-                    prompt: 'How many question do you want? ',
+                    prompt: 'Combien voulez-vous de questions? ',
                     type: 'integer',
                     validate: int => {
                         if (int >= 1 && int <= 20) return true;
-                        return 'Must be between 1 and 20 to start';
+                        return 'Le nombre de question doit être entre 1 et 20';
                     }
                 }
             ]
@@ -27,14 +30,15 @@ module.exports = class StartCommand extends Command {
     }
 
     async run(message, { int }) {
-        if (quizz.game.isOn) {  //not 2 games in parallel
-            message.channel.send("```Game is already started.```");
+        if (quizz.game.isOn) {  //Pas 2 jeux en parallèle
+            message.channel.send("```Une partie est déjà en cours.```");
             return;
         }
 
-        let self = this;
-        let api = 'https://kaamelott.chaudie.re/api/random';
+        let self = this;//Récupération du contexte générale
+        let api = 'https://kaamelott.chaudie.re/api/random'; //URL de l'api
         let i = 1
+        //Chargement des questions pour le quiz
         for (i; i <= int; i++) {
             await fetch(api)
                 .then(res => res.json())
@@ -44,37 +48,44 @@ module.exports = class StartCommand extends Command {
                 .catch((err) => console.log(err + ' failed ' + filter));
         }
 
+        //Affichage du lancement du jeu
         let embed = new discord.RichEmbed()
-            .setTitle("Game Starting")
+            .setTitle("Lancement du jeu")
             .setThumbnail('https://i.imgur.com/P2HEOcH.png')
-            .setDescription("You have started a " + int + " question(s) quiz. It will begin in 30s and you have the same time to answer each question.")
+            .setDescription("Vous avez commencez un quiz de" + int + "question(s). Il commencera dans 30 secondes et le temps entre les question sera le même.")
             .setColor(0x33ccff);
         message.channel.send(embed);
 
+        //initialisation des données du jeu
         quizz.game.isOn = true;
         quizz.game.numberOfQuestion = int;
+        //attente de 30 secondes avant le lancement du jeux
         new Promise((resolve, reject) => {
-            setTimeout(() => resolve("done!"), 30000)
+            setTimeout(() => resolve("Fait!"), 30000)
         })
+        //Après 30s le jeux commence
             .then(async function () {
                 for (let j in quizz.question) {
                     quizz.game.questionToAnswer.currentQuestion++;
                     quizz.game.questionToAnswer.answered = false;
                     let embed = new discord.RichEmbed()
                         .setTitle("Question n°" + j)
-                        .setDescription("who said:\n" + quizz.question[j].citation)
+                        .setDescription("Qui à dit:\n" + quizz.question[j].citation)
                         .setColor(0x33ccff);
                     message.channel.send(embed);
+                    //On attend 30s pour lancer la question suivante
                     let promise = new Promise((resolve, reject) => {
-                        setTimeout(() => resolve("done!"), 30000)
+                        setTimeout(() => resolve("Fait!"), 30000)
                     });
-                    await promise; // wait till the promise resolves
+                    await promise; // On attend le resolve
                 }
-                self.endGame(message);
+                self.endGame(message);//fin du jeu
             })
             .catch(function (error) { console.log(error) });
     }
 
+
+    //reset des données du jeu
     resetJson() {
         quizz.game.isOn = false;
         quizz.game.numberOfQuestion = 0;
@@ -84,23 +95,27 @@ module.exports = class StartCommand extends Command {
         quizz.score = [];
     }
 
+    //affichage du score final
     displayFinalScore(messageInstance) {
         let embed = new discord.RichEmbed();
 
+        //si personne n'a joué
         if (Object.keys(quizz.score).length <= 0) {
-            embed.setTitle("Big deception")
-                .setDescription("No one participate so no one win!")
+            embed.setTitle("Grosse déception")
+                .setDescription("Personne n'a participé dnoc personne ne gagne!")
                 .setColor(0xFF0000);
             messageInstance.channel.send(embed);
             return;
         }
 
+        //classement de score
         let scores = quizz.score.sort(function (x, y) {
             return x > y ? 1 : x < y ? 0 : -1
         });
 
+        //affichage du score
         let placeCounter = 1;
-        embed.setTitle("Final Scores")
+        embed.setTitle("Scores")
             .setColor(0x00FF00)
             .setThumbnail('https://i.imgur.com/P2HEOcH.png');
 
@@ -111,6 +126,7 @@ module.exports = class StartCommand extends Command {
         messageInstance.channel.send(embed);
     }
 
+    //On affiche le score puis le reset des données
     endGame(messageInstance) {
 
         this.displayFinalScore(messageInstance)

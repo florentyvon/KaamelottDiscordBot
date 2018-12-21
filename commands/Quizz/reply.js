@@ -10,61 +10,57 @@ module.exports = class ReplyCommand extends Command {
             group: 'quizz',
             memberName: 'rep',
             description: 'reply to quizz',
-            examples: ['k!reply arthur', 'Result :', 'Wrong answer'], // string array with different using  (Not Necessary)
+            examples: ['k!reply arthur', 'Result :', 'Mauvaise réponse'],
             args: [
                 {
                     key: 'answer',
-                    prompt: 'what is you answer? ',
+                    prompt: 'Quel est votre réponse? ',
                     type: 'string',
                 }
             ]
         });
     }
 
-    async run(message, { answer }) {  //args are parameter after name command
+    async run(message, { answer }) { 
         let embed = new discord.RichEmbed();
 
+        //si le jeu n'est pas en cours
         if (!quizz.game.isOn) {
-            embed.setTitle("Command Failed")
+            embed.setTitle("Erreur commande")
                 .setAuthor(message.author.username, message.author.avatarURL)
-                .setDescription("Game is already started.")
+                .setDescription("Le jeu n'est pas lancé.")
                 .setColor(0xFF0000);
             message.channel.send(embed)
             return;
         }
 
+        //Si la réponse a déja été trouvé.
         if (quizz.game.questionToAnswer.answered) {
             embed.setTitle("Too bad so sad")
                 .setAuthor(message.author.username, message.author.avatarURL)
-                .setDescription("Too late, sorry. The Direction.")
+                .setDescription("Trop tard, désolé. La Direction.")
                 .setColor(0xFF0000);
             message.channel.send(embed);
             return;
         }
 
+        //Si c'est la bonne réponse
         if (answer.toUpperCase() === quizz.question[quizz.game.questionToAnswer.currentQuestion].reponse.toUpperCase()) {
-            // set answer as already answered
+            // indication que la question a déja été répondu
             quizz.game.questionToAnswer.answered = true;
 
-            // update player score
+            // mise à jur du score du joueur
             if (!quizz.score[message.author.id]) {
                 quizz.score[message.author.id] = 1;
             } else {
                 quizz.score[message.author.id] = quizz.score[message.author.id] + 1;
-            }
-            let authorName = message.author;
-            // answer to player
-            /*message.channel.send("Well done " + message.author + " , the answer was inded: " + answer + 
-                                    "\n Your score is now : " + quizz.score[message.author.id]);
-*/
-            embed.setTitle("Congrats!")
+            }         
+            embed.setTitle("Félicitations!")
                 .setAuthor(message.author.username, message.author.avatarURL)
-                .setDescription("Well done , the answer was inded : " + answer +
-                    "\n Your score is now : " + quizz.score[message.author.id])
+                .setDescription("Bien joué , la réponse était en effet : " + answer +
+                    "\n Votre score est maintenant : " + quizz.score[message.author.id])
                 .setColor(0x00FF00);
-
             message.channel.send(embed)
-
         }
     }
 };
