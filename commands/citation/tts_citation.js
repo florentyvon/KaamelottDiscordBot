@@ -11,46 +11,37 @@ module.exports = class RandomCitationCommand extends Command {
             memberName: 'ttscitation',
             description: 'Renvoi une citation aléatoire en tts.',
             examples: [
-                'ttscitation (aucun filtre)',
-                'ttscitation -l @numeroDeLivre (filtre sur un livre compris entre 1 et 6)',
-                'ttscitation -p @nomPersonnage (filtre sur le personnage)',
-                'ttscitation -l @numeroDeLivre (1 à 6) -p @nomDuPersonnage'
+                'ttscitation [--p <nomPersonnage>] [--l <numeroDeLivre>(1-6)]'
             ]
         });
     }
 
-    // activated when "!run" is send in channel
-    /*
-     * WARNING : Node support async method but must specify " --harmony " when run the app
-     * so it become : node --harmony . 
-     */
-    async run(message, { filter, value }) { //args are parameter after name command
-        let dict = ParseArgs(message.argString); //parsing the arguments
-        let api = 'https://kaamelott.chaudie.re/api/random';
-        if(dict['l']) api = api.concat("/livre/" + dict['l']);
-        if(dict['p']) api = api.concat("/personnage/" + dict['p']);
+    async run(message){ //Message contient le message entier ayant lancé la commande (préfixe et commande suivis des arguments)
+        let dict = utils.ParseArgs(message.argString); //Parse les arguments de la commande (message.argString contient uniquement les arguments)
+        let api = 'https://kaamelott.chaudie.re/api/random'; //adresse de l'api où sont stockées les quotes
+        if(dict['l']) api = api.concat("/livre/" + dict['l']); //filtrage sur le livre
+        if(dict['p']) api = api.concat("/personnage/" + dict['p']); //filtrage sur le personnage
 
+        //Appel de l'api
         fetch(api)
             .then(res => res.json())
             .then(function(json) {
+                //création du message de sortie, pas de message embed possible en tts
                 message.channel.send(CitationToString(json),{tts: true});
             })
-            .catch((err) => console.log(err + ' failed ' + filter));
+            .catch((err) => {
+                console.log(err + ' failed ');
+                //Si l'appel a échoué, renvoie une erreur
+                let embed = new discord.RichEmbed();
+                embed
+                .setTitle("Erreur !")
+                .setDescription("Aucune citation n'a été trouvée !")
+                .setColor(0x00ae86);
+                return message.channel.send(embed);
+            });
     }
 };
-
+//formate une citation pour afficher la citation, son auteur et l'épisode concerné
 function CitationToString(json) {
-    return json.citation.citation + " comme " + json.citation.infos.personnage + " dans l'épisode "+json.citation.infos.episode+", du "+json.citation.infos.saison;
+    return json.citation.citation + " comme disait " + json.citation.infos.personnage + " dans l'épisode "+json.citation.infos.episode+", du "+json.citation.infos.saison;
 };
-
-function ParseArgs(message){
-    if(message==="") return {};
-    let args = message.trim().slice(1).split('-');
-    args.forEach(element => {
-        element.trim();
-    });
-    let dict = {};
-    args.map(item =>{ let [k,v] = item.split(' '); 
-                dict[k] = v;})
-    return dict;
-}

@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
 const discord = require('discord.js');
 const image = require('./ImagePersonnage.json')
+const utils = require('../../Utilities/Utility');
 
 module.exports = class RandomCitationCommand extends Command {
     constructor(client) {
@@ -13,49 +14,46 @@ module.exports = class RandomCitationCommand extends Command {
             memberName: 'citation',
             description: 'Renvoi une citation aléatoire.',
             examples: [
-                'citation (aucun filtre)',
-                'citation -l @numeroDeLivre (filtre sur un livre compris entre 1 et 6)',
-                'citation -p @nomPersonnage (filtre sur le personnage)'
+                'citation [--p <nomPersonnage>] [--l <numeroDeLivre>(1-6)]'
             ]
         });
     }
 
-    async run(message){ 
-        let dict = ParseArgs(message.argString); //parsing the arguments
-        let api = 'https://kaamelott.chaudie.re/api/random';
-        if(dict['l']) api = api.concat("/livre/" + dict['l']);
-        if(dict['p']) api = api.concat("/personnage/" + dict['p']);
+    async run(message){ //Message contient le message entier ayant lancé la commande (préfixe et commande suivis des arguments)
+        let dict = utils.ParseArgs(message.argString); //Parse les arguments de la commande (message.argString contient uniquement les arguments)
+        let api = 'https://kaamelott.chaudie.re/api/random'; //adresse de l'api où sont stockées les quotes
+        if(dict['l']) api = api.concat("/livre/" + dict['l']); //filtrage sur le livre
+        if(dict['p']) api = api.concat("/personnage/" + dict['p']); //filtrage sur le personnage
 
+        //Appel de l'api
         fetch(api)
             .then(res => res.json())
             .then(function(json) {
+                //création du message de sortie
                 let embed = new discord.RichEmbed();
                 embed
                 .setAuthor(message.author.username,message.author.avatarURL)
-                .setThumbnail(image[json.citation.infos.personnage])
-                .setDescription(CitationToString(json))
+                .setThumbnail(image[json.citation.infos.personnage]) //On affiche une image du personnage stockée en local
+                .setDescription(CitationToString(json)) //Version écrite de la citation
                 .setColor(0x00ae86);
                 message.channel.send(embed);
             })
-            .catch((err) => console.log(err + ' failed '));
+            .catch((err) => {
+                console.log(err + ' failed ');
+                //Si l'appel a échoué, renvoie une erreur
+                let embed = new discord.RichEmbed();
+                embed
+                .setTitle("Erreur !")
+                .setDescription("Aucune citation n'a été trouvée !")
+                .setColor(0x00ae86);
+                return message.channel.send(embed);
+            });
     }
 };
-
+//formate une citation pour afficher la citation, son auteur et l'épisode concerné
 function CitationToString(json) {
     return "\" " + json.citation.citation +
         " \"\nPersonnage : " + json.citation.infos.personnage +
         "\n" + json.citation.infos.saison +
         "\nEpisode : " + json.citation.infos.episode;
 };
-
-function ParseArgs(message){
-    if(message==="") return {};
-    let args = message.trim().slice(1).split('-');
-    args.forEach(element => {
-        element.trim();
-    });
-    let dict = {};
-    args.map(item =>{ let [k,v] = item.split(' '); 
-                dict[k] = v;})
-    return dict;
-}
