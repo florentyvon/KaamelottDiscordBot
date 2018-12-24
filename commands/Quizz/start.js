@@ -102,7 +102,7 @@ module.exports = class StartCommand extends Command {
         //si personne n'a joué
         if (Object.keys(quizz.score).length <= 0) {
             embed.setTitle("Grosse déception")
-                .setDescription("Personne n'a participé dnoc personne ne gagne!")
+                .setDescription("Personne n'a participé donc personne ne gagne!")
                 .setColor(0xFF0000);
             messageInstance.channel.send(embed);
             return;
