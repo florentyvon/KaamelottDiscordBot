@@ -34,6 +34,15 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
             let nb = Object.keys(insultes).length;
             id = Math.floor(Math.random() * nb) + 1;
         }
+        if(id > nb || id < 0){
+            let embed = new discord.RichEmbed();
+            embed
+                .setTitle('Erreur !')
+                .setDescription("Insulte choisie inexistante")
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
+            return message.channel.send(embed);
+        }
         let VCm = message.member.voiceChannel;//le chat vocal de l'utilisateur
         let soundsPath = "";//Variable qui permettra de jouer le son voulu
         let pathArray = [];//Tableau qui contiendra la suite des répertoires du chemin actuel
@@ -45,6 +54,7 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
         if(typeof Vcm == "undefined"){
             let embed = new discord.RichEmbed();
             embed
+                .setTitle('Erreur !')
                 .setDescription("Rejoins un chat vocal d'abord !")
                 .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
                 .setColor(0xFF0000);
@@ -55,6 +65,7 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
         if(!VCm.members.has(user.id)){
             let embed = new discord.RichEmbed();
             embed
+                .setTitle('Erreur !')
                 .setDescription("Tu dois être dans le même chat vocal que ta cible !")
                 .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
                 .setColor(0xFF0000);

@@ -12,28 +12,19 @@ module.exports = class DiceRollCommand extends Command{
             args: [
                 {
                     key: 'int',
-                    prompt: 'What would you like the dice to be ? ',
+                    prompt: 'TU veuxl ancer un dé de combien ? (4, 6, 8, 10, 20 etc.)',
                     type: 'integer',
                     validate: int => {
-                        if (int >= 1 && int <= 6) return true;
-                        return 'Must be between 1 and 6 to be rolled';
+                        if (int >= 1 && int <= 100) return true;
+                        return 'Must be between 1 and 100 to be rolled';
                     }
                 }
             ]
         }); 
     }
 
-    // activated when "!run" is send in channel
-    /*
-    * WARNING : Node support async method but must specify " --harmony " when run the app
-    * so it become : node --harmony . 
-    */
     async run(message, {int}){  //args are parameter after name command
-            let roll = Math.floor(Math.random() * 6) + 1;
-            if(roll === int){
-                message.reply("Congratulations ! You rolled a " + roll + " (1 - 6) as you wanted !");
-            }else{
-                message.reply("You rolled a " + roll + " (1 - 6) but wanted a "+ int + ". Try Again !");
-            }        
+        let roll = Math.floor(Math.random() * int) + 1;
+        message.reply("You rolled a " + roll + " (1 - " + int + ")"); 
     }
 };

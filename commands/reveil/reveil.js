@@ -9,7 +9,7 @@ module.exports = class Reveil extends Command {
             aliases: ['r'],
             memberName: 'reveil',
             description: 'Réveille un chat vocal avec un "coup de tintouin"',
-            examples: [ 'reveil' ]
+            examples: [ 'k!reveil' ]
         });
     }
 
@@ -32,7 +32,7 @@ module.exports = class Reveil extends Command {
                 //joue le fichier son du réveil
                 const dispatcher = connection.playFile("./commands/reveil/reveil.mp3");
                 //quitte le chat vocal quand la lecture est terminée
-                dispatcher.on("end", end => { VC.leave() });
+                dispatcher.on("end", end => { VC.leave() }); //on déconnecte le bot du chat vocal une fois le message terminé
             })
             .catch(console.error)
     }

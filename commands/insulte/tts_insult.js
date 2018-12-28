@@ -1,47 +1,56 @@
 const { Command } = require('discord.js-commando');
-const fetch = require('node-fetch');
 const insultes = require('./insults.json');
+const discord = require('discord.js');
 
 module.exports = class RandominsultCommand extends Command {
     constructor(client) {
-        let nb = Object.keys(insultes).length;
-        let mess = Math.floor(Math.random() * nb)+1;
         // Only set client + CommandInfo
         super(client, {
             name: 'ttsinsult',
             group: 'insulte',
-            aliases: ['ti'],
+            aliases: ['ti'], //permet que k!ti fonctionne commme k!ttsinsult
             memberName: 'ttsinsult',
-            description: 'Renvoi une insult aléatoire en tts.',
+            description: 'Renvoie une insulte aléatoire en tts à une personne donnée',
             examples: [
-                'ttsinsult (aucun filtre)',
-                'ttsinsult -l @numeroDeLivre (filtre sur un livre compris entre 1 et 6)',
-                'ttsinsult -p @nomPersonnage (filtre sur le personnage)',
-                'ttsinsult -l @numeroDeLivre (1 à 6) -p @nomDuPersonnage'
+                'k!ttsinsult @user',
+                'k!ttsinsult @nomPersonnage insulte_ID',
+                'Essaye k!insultelist pour connaître tous les ID'
             ],
             args: [
                 {
+                    //Utilisateur qu'il faut insulter
                     key: 'user',
-                    prompt: 'What user do you want to insult ? ',
+                    prompt: 'Qui veux-tu insulter ? Taggue le/la', //Si pas précisé dès le début, question posée
                     type: 'user',
                 },
                 {
+                    //Insulte que l'utilisateur souhaite envoyer
                     key : 'id',
-                    prompt : 'Do you want to send a precise insult ?',
+                    prompt : 'Veux-tu envoyer une insulte particulière ? Entre son id (k!insultelist ou k!il pour connaître tous les id)',
                     type : 'integer',
-                    default : mess
+                    default : 0
                 }
             ]
         });
     }
 
-    // activated when "!run" is send in channel
-    /*
-     * WARNING : Node support async method but must specify " --harmony " when run the app
-     * so it become : node --harmony . 
-     */
-    async run(message, { filter, value }) { //args are parameter after name command
-        message.delete();
+    async run(message, { user, id }) { //args are parameter after name command
+        let nb = Object.keys(insultes).length;
+        if(id === 0){//Si aucun id n'a été envoyé, en sélectionne un aléatoire
+            id = Math.floor(Math.random() * nb) + 1;
+        }
+        //Vérification que l'insulte envoyée existe
+        if(id > nb || id <= 0){
+            let embed = new discord.RichEmbed();
+            embed
+                .setTitle('Erreur !')
+                .setDescription("Insulte choisie inexistante")
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
+            return message.channel.send(embed); //on retourne un message d'erreur sinon
+        }
+        message.delete(); //on supprime le message pour que la personne insultée ne sache pas qui l'a taggué
+        //Si l'utilisateur taggue le bot, il est pris à son propre jeu et se fait insulter lui-même sinon son insulte est envoyée
         if (user.id === '507258744309022721') {
             message.reply(insultes[id]['text'],{tts: true});
         } else {
