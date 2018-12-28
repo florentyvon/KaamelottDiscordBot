@@ -29,6 +29,7 @@ module.exports = class ReplyCommand extends Command {
             embed.setTitle("Erreur commande")
                 .setAuthor(message.author.username, message.author.avatarURL)
                 .setDescription("Le jeu n'est pas lancé.")
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
                 .setColor(0xFF0000);
             message.channel.send(embed)
             return;

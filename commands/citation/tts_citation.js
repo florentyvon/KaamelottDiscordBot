@@ -37,7 +37,8 @@ module.exports = class RandomCitationCommand extends Command {
                 embed
                 .setTitle("Erreur !")
                 .setDescription("Aucune citation n'a été trouvée !")
-                .setColor(0x00ae86);
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
                 return message.channel.send(embed);
             });
     }

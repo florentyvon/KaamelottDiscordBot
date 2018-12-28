@@ -46,7 +46,8 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
             let embed = new discord.RichEmbed();
             embed
                 .setDescription("Rejoins un chat vocal d'abord !")
-                .setColor(0x00ae86);
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
             return message.channel.send(embed);
         }
 
@@ -55,7 +56,8 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
             let embed = new discord.RichEmbed();
             embed
                 .setDescription("Tu dois être dans le même chat vocal que ta cible !")
-                .setColor(0x00ae86);
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
             return message.channel.send(embed);
         }
 

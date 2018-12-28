@@ -36,7 +36,8 @@ module.exports = class RandomAudioCitationCommand extends Command {
                 embed
                 .setTitle("Erreur !")
                 .setDescription("Vous devez être connecté à un chat vocal d'abord !")
-                .setColor(0x00ae86);
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
             return message.channel.send(embed);
         }
 
@@ -74,7 +75,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
                 });
                 //reprend les valeurs de toplaytemp[] dans le toplay[]
                 toplay = toplaytemp.slice(0);
-                console.log("fl toplaytemp :"+toplaytemp.length);
+                //console.log("fl toplaytemp :"+toplaytemp.length);
                 toplaytemp = [];
             }else{
                 //Si le livre est inconnu : renvoie une erreur
@@ -82,7 +83,8 @@ module.exports = class RandomAudioCitationCommand extends Command {
                 embed
                 .setTitle("Erreur !")
                 .setDescription("Filtre Erroné sur la valeur l : veuillez choisir un nombre entre 1 et 6")
-                .setColor(0x00ae86);
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
                 return message.channel.send(embed);
             }
         }
@@ -96,14 +98,15 @@ module.exports = class RandomAudioCitationCommand extends Command {
             toplay = toplaytemp.slice(0);
             console.log("fp toplaytemp :"+toplaytemp.length);
         }
-        console.log("fp toplay :"+toplay.length);
+        //console.log("fp toplay :"+toplay.length);
         
         if(toplay.length ==0){ //Si aucune citation ne correspond aux critères, renvoie une erreur
             let embed = new discord.RichEmbed();
                 embed
                 .setTitle("Erreur !")
                 .setDescription("Aucune citation correspondant aux critères n'a été trouvé.")
-                .setColor(0x00ae86);
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setColor(0xFF0000);
             return message.channel.send(embed);
         }
         
