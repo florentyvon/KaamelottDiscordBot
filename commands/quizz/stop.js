@@ -21,6 +21,7 @@ module.exports = class StopCommand extends Command {
         if(!quizz.game.isOn) { 
             embed.setTitle("Erreur Commande")
                  .setDescription(message.author + "Le jeu n'est pas commencé.")
+                 .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
                  .setColor(0xFF0000);
             message.channel.send(embed)
             return; 
@@ -46,7 +47,7 @@ module.exports = class StopCommand extends Command {
             message.channel.send(embed);
         }else{
             //le jeu continu
-            embed.setTitle("Le jeu continu")
+            embed.setTitle("Le jeu continue")
                  .setDescription("Vous pensiez que le jeu était fini ? Et Nooon! Le jeu continu !")
                  .setColor(0x0000FF);
             message.channel.send(embed);            
