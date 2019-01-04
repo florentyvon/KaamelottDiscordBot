@@ -10,7 +10,7 @@ module.exports = class ReplyCommand extends Command {
             group: 'quizz',
             memberName: 'rep',
             description: 'reply to quizz',
-            examples: ['k!reply arthur', 'Result :', 'Mauvaise réponse'],
+            examples: ['k!rep arthur', 'Result :', 'Mauvaise réponse'],
             args: [
                 {
                     key: 'answer',
@@ -37,9 +37,10 @@ module.exports = class ReplyCommand extends Command {
 
         //Si la réponse a déja été trouvé.
         if (quizz.game.questionToAnswer.answered) {
-            embed.setTitle("Too bad so sad")
+            embed.setTitle("Dommage !")
                 .setAuthor(message.author.username, message.author.avatarURL)
-                .setDescription("Trop tard, désolé. La Direction.")
+                .setThumbnail('https://pngimg.com/uploads/smiley/smiley_PNG113.png')
+                .setDescription("Trop tard, quelqu'un a été plus rapide que vous !")
                 .setColor(0xFF0000);
             message.channel.send(embed);
             return;
@@ -50,7 +51,7 @@ module.exports = class ReplyCommand extends Command {
             // indication que la question a déja été répondu
             quizz.game.questionToAnswer.answered = true;
 
-            // mise à jur du score du joueur
+            // mise à jour du score du joueur
             if (!quizz.score[message.author.id]) {
                 quizz.score[message.author.id] = 1;
             } else {
@@ -58,10 +59,16 @@ module.exports = class ReplyCommand extends Command {
             }         
             embed.setTitle("Félicitations!")
                 .setAuthor(message.author.username, message.author.avatarURL)
-                .setDescription("Bien joué , la réponse était en effet : " + answer +
+                .setDescription("Bien joué , la réponse était en effet : " + quizz.question[quizz.game.questionToAnswer.currentQuestion].reponse +
                     "\n Votre score est maintenant : " + quizz.score[message.author.id])
                 .setColor(0x00FF00);
-            message.channel.send(embed)
+            message.channel.send(embed);
+        }else{
+            embed.setTitle("Mauvaise réponse !")
+                .setAuthor(message.author.username, message.author.avatarURL)
+                .setDescription("Indice : "+quizz.question[quizz.game.questionToAnswer.currentQuestion].reponse[0]+"...")
+                .setColor(0xFF0000);
+            message.channel.send(embed);
         }
     }
 };

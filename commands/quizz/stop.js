@@ -10,7 +10,7 @@ module.exports = class StopCommand extends Command {
             group: 'quizz',
             memberName: 'stop',
             description: 'stop a quizz',
-            examples: ['k!stop', 'Result :', 'Voulez-cous arreter ce quiz? \n Réagir pour voter'], // string array with different using  (Not Necessary)
+            examples: ['k!stop', 'Result :', 'Voulez-vous arreter ce quiz? \n Réagir pour voter'], // string array with different using  (Not Necessary)
         });
     }
 
@@ -29,7 +29,7 @@ module.exports = class StopCommand extends Command {
 
         //Affichage du message pour votez
         embed.setTitle("Fin du jeu")
-             .setDescription("Voulez-cous arreter ce quiz? \n👍 / 👎\nFin dans 15 secondes")
+             .setDescription("Voulez-vous arrêter ce quiz? \n👍 / 👎\nFin dans 15 secondes")
              .setColor(0x0000FF);
         let msg = await message.channel.send(embed);
         await msg.react("👍");
@@ -41,14 +41,14 @@ module.exports = class StopCommand extends Command {
         //Fin du jeu
         if(reactions.get("👍").count >= reactions.get("👎").count){
             quizz.game.isOn=false;
-            embed.setTitle("Fin du jeu End")
-                 .setDescription("La démocratie à parler, le jeu est fini !")
+            embed.setTitle("Fin du jeu")
+                 .setDescription("La démocratie a parlé, le jeu est fini !")
                  .setColor(0x0000FF);
             message.channel.send(embed);
         }else{
             //le jeu continu
-            embed.setTitle("Le jeu continue")
-                 .setDescription("Vous pensiez que le jeu était fini ? Et Nooon! Le jeu continu !")
+            embed.setTitle("Le jeu continu")
+                 .setDescription("Vous pensiez que le jeu était fini ? Et Nooon! Le jeu continue !")
                  .setColor(0x0000FF);
             message.channel.send(embed);            
         }

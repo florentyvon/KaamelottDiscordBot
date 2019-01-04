@@ -12,8 +12,8 @@ module.exports = class StartCommand extends Command {
             memberName: 'start',
             description: 'Start a quizz',
             examples: ['k!start 1',
-             'Result :', 
-             'Vous avez commencez un quiz de 1 question(s)'],
+                'Result :',
+                'Vous avez commencez un quiz de 1 question(s)'],
             //La commande nécessite un nombre de question.
             args: [
                 {
@@ -31,7 +31,14 @@ module.exports = class StartCommand extends Command {
 
     async run(message, { int }) {
         if (quizz.game.isOn) {  //Pas 2 jeux en parallèle
-            message.channel.send("```Une partie est déjà en cours.```");
+            //Affichage du lancement du jeu
+            let embed = new discord.RichEmbed()
+                .setTitle("Erreur Commande")
+                .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
+                .setDescription("Un jeu est déjà en cours")
+                .setColor(0xFF0000);
+            message.channel.send(embed);
+            //message.channel.send("```Une partie est déjà en cours.```");
             return;
         }
 
@@ -52,7 +59,7 @@ module.exports = class StartCommand extends Command {
         let embed = new discord.RichEmbed()
             .setTitle("Lancement du jeu")
             .setThumbnail('https://i.imgur.com/P2HEOcH.png')
-            .setDescription("Vous avez commencez un quiz de" + int + "question(s). Il commencera dans 30 secondes et le temps entre les question sera le même.")
+            .setDescription("Vous avez commencé un quiz de " + int + " question(s). Il commencera dans 30 secondes et le temps entre les questions sera de même.")
             .setColor(0x33ccff);
         message.channel.send(embed);
 
@@ -63,13 +70,14 @@ module.exports = class StartCommand extends Command {
         new Promise((resolve, reject) => {
             setTimeout(() => resolve("Fait!"), 30000)
         })
-        //Après 30s le jeux commence
+            //Après 30s le jeux commence
             .then(async function () {
                 for (let j in quizz.question) {
+                    var n = parseInt(j) + 1;
                     quizz.game.questionToAnswer.currentQuestion++;
                     quizz.game.questionToAnswer.answered = false;
                     let embed = new discord.RichEmbed()
-                        .setTitle("Question n°" + j)
+                        .setTitle("Question n° " + n)
                         .setDescription("Qui à dit:\n" + quizz.question[j].citation)
                         .setColor(0x33ccff);
                     message.channel.send(embed);
@@ -98,30 +106,31 @@ module.exports = class StartCommand extends Command {
     //affichage du score final
     displayFinalScore(messageInstance) {
         let embed = new discord.RichEmbed();
+        embed.setTitle("Fin du Jeu");
 
         //si personne n'a joué
         if (Object.keys(quizz.score).length <= 0) {
-            embed.setTitle("Grosse déception")
-                .setDescription("Personne n'a participé donc personne ne gagne!")
-                .setColor(0xFF0000);
+            embed.setDescription("Personne n'a participé donc personne ne gagne!")
+                .setThumbnail('https://pngimg.com/uploads/smiley/smiley_PNG113.png')
+                .setColor(0x0000FF);
             messageInstance.channel.send(embed);
             return;
         }
 
-        //classement de score
+        //classement de scores
         let scores = quizz.score.sort(function (x, y) {
             return x > y ? 1 : x < y ? 0 : -1
         });
 
         //affichage du score
         let placeCounter = 1;
-        embed.setTitle("Scores")
-            .setColor(0x00FF00)
-            .setThumbnail('https://i.imgur.com/P2HEOcH.png');
+        embed.setColor(0x0000FF)
+            .setThumbnail('https://i.imgur.com/P2HEOcH.png')
+            .setDescription("Scores");
 
         for (let k in scores) {
             let user = messageInstance.client.users.get(k);
-            embed.addField(placeCounter++ + ".", user + " (score : " + quizz.score[k] + ")");
+            embed.addField(placeCounter++ + ". " + user.username,"(score : " + quizz.score[k] + ")");
         }
         messageInstance.channel.send(embed);
     }
