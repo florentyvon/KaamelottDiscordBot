@@ -35,7 +35,7 @@ exports.ParseArgs =function(message){
     args.map(item =>{ 
         let [k,v] = item.split(/ (.+)/); 
         if(v) v = v.replace(/\s\s+/g, ' ');
-        console.log("k:"+k+",v:"+v);
+        //console.log("k:"+k+",v:"+v);
         dict[k] = v;})
     return dict;
 }

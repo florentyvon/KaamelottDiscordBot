@@ -4,13 +4,12 @@ const discord = require('discord.js')
 
 module.exports = class StopCommand extends Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
             name: 'stop',
             group: 'quizz',
             memberName: 'stop',
             description: 'stop a quizz',
-            examples: ['k!stop', 'Result :', 'Voulez-vous arreter ce quiz? \n Réagir pour voter'], // string array with different using  (Not Necessary)
+            examples: ['k!stop', 'Resultat :', 'Voulez-vous arreter ce quiz? \n Réagir pour voter'],
         });
     }
 
@@ -41,13 +40,13 @@ module.exports = class StopCommand extends Command {
         //Fin du jeu
         if(reactions.get("👍").count >= reactions.get("👎").count){
             quizz.game.isOn=false;
-            embed.setTitle("Fin du jeu")
+            embed.setTitle("Fin du jeu !")
                  .setDescription("La démocratie a parlé, le jeu est fini !")
                  .setColor(0x0000FF);
             message.channel.send(embed);
         }else{
-            //le jeu continu
-            embed.setTitle("Le jeu continu")
+            //le jeu continue
+            embed.setTitle("Le jeu continue !")
                  .setDescription("Vous pensiez que le jeu était fini ? Et Nooon! Le jeu continue !")
                  .setColor(0x0000FF);
             message.channel.send(embed);            

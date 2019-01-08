@@ -5,16 +5,15 @@ const discord = require('discord.js');
 
 module.exports = class StartCommand extends Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
             name: 'start',
             group: 'quizz',
             memberName: 'start',
             description: 'Start a quizz',
             examples: ['k!start 1',
-                'Result :',
+                'Resultat :',
                 'Vous avez commencez un quiz de 1 question(s)'],
-            //La commande nécessite un nombre de question.
+            //La commande nécessite un certain nombre de question.
             args: [
                 {
                     key: 'int',
@@ -31,7 +30,7 @@ module.exports = class StartCommand extends Command {
 
     async run(message, { int }) {
         if (quizz.game.isOn) {  //Pas 2 jeux en parallèle
-            //Affichage du lancement du jeu
+            //Affichage de l'erreur : un jeu est déjà en cours
             let embed = new discord.RichEmbed()
                 .setTitle("Erreur Commande")
                 .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dialog-error-round.svg/48px-Dialog-error-round.svg.png')
@@ -42,7 +41,7 @@ module.exports = class StartCommand extends Command {
             return;
         }
 
-        let self = this;//Récupération du contexte générale
+        let self = this;//Récupération du contexte général
         let api = 'https://kaamelott.chaudie.re/api/random'; //URL de l'api
         let i = 1
         //Chargement des questions pour le quiz
@@ -66,11 +65,11 @@ module.exports = class StartCommand extends Command {
         //initialisation des données du jeu
         quizz.game.isOn = true;
         quizz.game.numberOfQuestion = int;
-        //attente de 30 secondes avant le lancement du jeux
+        //attente de 15 secondes avant le lancement du jeu
         new Promise((resolve, reject) => {
-            setTimeout(() => resolve("Fait!"), 30000)
+            setTimeout(() => resolve("Fait!"), 15000)
         })
-            //Après 30s le jeux commence
+            //Après 15s le jeu commence
             .then(async function () {
                 for (let j in quizz.question) {
                     var n = parseInt(j) + 1;
@@ -78,12 +77,12 @@ module.exports = class StartCommand extends Command {
                     quizz.game.questionToAnswer.answered = false;
                     let embed = new discord.RichEmbed()
                         .setTitle("Question n° " + n)
-                        .setDescription("Qui à dit:\n" + quizz.question[j].citation)
+                        .setDescription("Qui a dit :\n" + quizz.question[j].citation)
                         .setColor(0x33ccff);
                     message.channel.send(embed);
-                    //On attend 30s pour lancer la question suivante
+                    //On attend 15s pour lancer la question suivante
                     let promise = new Promise((resolve, reject) => {
-                        setTimeout(() => resolve("Fait!"), 30000)
+                        setTimeout(() => resolve("Fait!"), 15000)
                     });
                     await promise; // On attend le resolve
                 }
@@ -127,7 +126,7 @@ module.exports = class StartCommand extends Command {
         embed.setColor(0x0000FF)
             .setThumbnail('https://i.imgur.com/P2HEOcH.png')
             .setDescription("Scores");
-
+        //tableau des scores
         for (let k in scores) {
             let user = messageInstance.client.users.get(k);
             embed.addField(placeCounter++ + ". " + user.username,"(score : " + quizz.score[k] + ")");
@@ -135,7 +134,7 @@ module.exports = class StartCommand extends Command {
         messageInstance.channel.send(embed);
     }
 
-    //On affiche le score puis le reset des données
+    //On affiche le score puis on efface les données
     endGame(messageInstance) {
 
         this.displayFinalScore(messageInstance)

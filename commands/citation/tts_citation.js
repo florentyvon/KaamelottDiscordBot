@@ -4,7 +4,6 @@ const utils = require('../../Utilities/Utility');
 
 module.exports = class RandomCitationCommand extends Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
             name: 'ttscitation',
             group: 'citation',
@@ -12,7 +11,7 @@ module.exports = class RandomCitationCommand extends Command {
             memberName: 'ttscitation',
             description: 'Renvoi une citation aléatoire en tts.',
             examples: [
-                'ttscitation [--p <nomPersonnage>] [--l <numeroDeLivre>(1-6)]'
+                'ttscitation [--p <nom de Personnage>] [--l <numero de Livre (1-6)>]'
             ]
         });
     }
@@ -31,7 +30,7 @@ module.exports = class RandomCitationCommand extends Command {
                 message.channel.send(CitationToString(json),{tts: true});
             })
             .catch((err) => {
-                console.log(err + ' failed ');
+                //console.log(err + ' failed ');
                 //Si l'appel a échoué, renvoie une erreur
                 let embed = new discord.RichEmbed();
                 embed

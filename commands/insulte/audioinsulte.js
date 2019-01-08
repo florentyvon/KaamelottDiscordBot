@@ -5,7 +5,6 @@ const discord = require('discord.js');
 
 module.exports = class RandomAudioInsulteCommand extends commando.Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
             name: 'audioinsulte',
             group: 'insulte',

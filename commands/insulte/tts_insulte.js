@@ -4,16 +4,15 @@ const discord = require('discord.js');
 
 module.exports = class RandominsultCommand extends Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
-            name: 'ttsinsult',
+            name: 'ttsinsulte',
             group: 'insulte',
             aliases: ['ti'], //permet que k!ti fonctionne commme k!ttsinsult
-            memberName: 'ttsinsult',
+            memberName: 'ttsinsulte',
             description: 'Renvoie une insulte aléatoire en tts à une personne donnée',
             examples: [
-                'k!ttsinsult @user',
-                'k!ttsinsult @nomPersonnage insulte_ID',
+                'k!ttsinsulte @user',
+                'k!ttsinsulte @nomPersonnage insulte_ID',
                 'Essaye k!insultelist pour connaître tous les ID'
             ],
             args: [
@@ -34,7 +33,7 @@ module.exports = class RandominsultCommand extends Command {
         });
     }
 
-    async run(message, { user, id }) { //args are parameter after name command
+    async run(message, { user, id }) { 
         let nb = Object.keys(insultes).length;
         if(id === 0){//Si aucun id n'a été envoyé, en sélectionne un aléatoire
             id = Math.floor(Math.random() * nb) + 1;

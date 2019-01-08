@@ -4,7 +4,6 @@ const discord = require('discord.js');
 
 module.exports = class RandomInsulteCommand extends commando.Command{
     constructor(client){
-        // Only set client + CommandInfo
         super(client, {
             name: 'insultelist',
             group: 'insulte', 
@@ -26,7 +25,7 @@ module.exports = class RandomInsulteCommand extends commando.Command{
         let embed = new discord.RichEmbed();
         embed
         .setAuthor(message.author.username,message.author.avatarURL)
-        .setDescription('Sent you a DM with infos')
+        .setDescription('Je vous ai envoyé un message privé')
         .setColor(0x00ae86);
         //Envoi du message d'informations puis du message privé
         message.channel.send(embed);

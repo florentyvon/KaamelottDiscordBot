@@ -7,7 +7,6 @@ const utils = require('../../Utilities/Utility');
 
 module.exports = class RandomAudioCitationCommand extends Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
             name: 'audiocitation',
             group: 'citation',
@@ -15,7 +14,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
             memberName: 'audiocitation',
             description: 'Joue l\'audio d\'une citation au hasard',
             examples: [
-                'audiocitation [--p <nomPersonnage>] [--l <numeroDeLivre>(1-6)]'
+                'audiocitation [--p <nom de Personnage>] [--l <numero de Livre (1-6)>]'
             ]
         });
     }
@@ -62,7 +61,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
         Object.keys(sounds).forEach(element => {
             toplay.push(sounds[element]);
         });
-        console.log("sf toplay :"+toplay.length);
+        //console.log("sf toplay :"+toplay.length);
 
         //filtre sur l'index du livre voulu par l'utilisateur : vérifie que le filtre -l a bien été voulu par l'utilisateur et qu'il est bien borné
         if (dict['l']) {
@@ -96,7 +95,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
                 }
             });
             toplay = toplaytemp.slice(0);
-            console.log("fp toplaytemp :"+toplaytemp.length);
+            //console.log("fp toplaytemp :"+toplaytemp.length);
         }
         //console.log("fp toplay :"+toplay.length);
         
@@ -117,7 +116,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
         VC.join()
             .then(connection => {
                 //joue le fichier son aléatoire
-                console.log("fichier : "+toplay[ind]);
+                //console.log("fichier : "+toplay[ind]);
                 const dispatcher = connection.playFile(soundsPath + toplay[ind]['file']);
                 //quitte le chat vocal quand la lecture est terminée
                 dispatcher.on("end", end => { VC.leave() });

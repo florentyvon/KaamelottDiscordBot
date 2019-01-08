@@ -6,7 +6,6 @@ const utils = require('../../Utilities/Utility');
 
 module.exports = class RandomCitationCommand extends Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
             name: 'citation',
             group: 'citation',
@@ -14,7 +13,7 @@ module.exports = class RandomCitationCommand extends Command {
             memberName: 'citation',
             description: 'Renvoi une citation aléatoire.',
             examples: [
-                'citation [--p <nomPersonnage>] [--l <numeroDeLivre>(1-6)]'
+                'citation [--p <nom de Personnage>] [--l <numero de Livre (1-6)>]'
             ]
         });
     }
@@ -39,7 +38,7 @@ module.exports = class RandomCitationCommand extends Command {
                 message.channel.send(embed);
             })
             .catch((err) => {
-                console.log(err + ' failed ');
+                //console.log(err + ' failed ');
                 //Si l'appel a échoué, renvoie une erreur
                 let embed = new discord.RichEmbed();
                 embed

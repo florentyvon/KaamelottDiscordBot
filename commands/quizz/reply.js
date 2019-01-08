@@ -4,13 +4,12 @@ const discord = require('discord.js')
 
 module.exports = class ReplyCommand extends Command {
     constructor(client) {
-        // Only set client + CommandInfo
         super(client, {
             name: 'rep',
             group: 'quizz',
             memberName: 'rep',
-            description: 'reply to quizz',
-            examples: ['k!rep arthur', 'Result :', 'Mauvaise réponse'],
+            description: 'répond au quizz',
+            examples: ['k!rep arthur', 'Resultat :', 'Mauvaise/bonne réponse'],
             args: [
                 {
                     key: 'answer',
