@@ -58,7 +58,7 @@ module.exports = class StartCommand extends Command {
         let embed = new discord.RichEmbed()
             .setTitle("Lancement du jeu")
             .setThumbnail('https://i.imgur.com/P2HEOcH.png')
-            .setDescription("Vous avez commencé un quiz de " + int + " question(s). Il commencera dans 30 secondes et le temps entre les questions sera de même.")
+            .setDescription("Vous avez commencé un quiz de " + int + " question(s). Il commencera dans 15 secondes et le temps entre les questions sera de même.")
             .setColor(0x33ccff);
         message.channel.send(embed);
 
@@ -72,11 +72,10 @@ module.exports = class StartCommand extends Command {
             //Après 15s le jeu commence
             .then(async function () {
                 for (let j in quizz.question) {
-                    var n = parseInt(j) + 1;
                     quizz.game.questionToAnswer.currentQuestion++;
                     quizz.game.questionToAnswer.answered = false;
                     let embed = new discord.RichEmbed()
-                        .setTitle("Question n° " + n)
+                        .setTitle("Question n° " + (parseInt(j) + 1))
                         .setDescription("Qui a dit :\n" + quizz.question[j].citation)
                         .setColor(0x33ccff);
                     message.channel.send(embed);
@@ -110,7 +109,7 @@ module.exports = class StartCommand extends Command {
         //si personne n'a joué
         if (Object.keys(quizz.score).length <= 0) {
             embed.setDescription("Personne n'a participé donc personne ne gagne!")
-                .setThumbnail('https://pngimg.com/uploads/smiley/smiley_PNG113.png')
+                .setThumbnail('https://i.imgur.com/z63gdPX.png')
                 .setColor(0x0000FF);
             messageInstance.channel.send(embed);
             return;
@@ -124,7 +123,7 @@ module.exports = class StartCommand extends Command {
         //affichage du score
         let placeCounter = 1;
         embed.setColor(0x0000FF)
-            .setThumbnail('https://i.imgur.com/P2HEOcH.png')
+            .setThumbnail('https://i.imgur.com/q40LkUm.jpg')
             .setDescription("Scores");
         //tableau des scores
         for (let k in scores) {
