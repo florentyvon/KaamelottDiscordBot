@@ -8,7 +8,7 @@ module.exports = class RandomInsulteCommand extends commando.Command{
             name: 'insulte',
             group: 'insulte', 
             memberName: 'insulte',
-            description: 'Envoyer une insulte à quelqu\'un', 
+            description: 'Envoie une insulte en tagguant une personne donnée', 
             aliases:['i'], //permet que k!i conduise au même résultat que k!insulte
             examples: [ 'k!insulte @user', 'k!insulte @user insult_id', 'Essaye k!insultelist pour connaître tous les ID' ], // exemples d'utilisation
             args: [

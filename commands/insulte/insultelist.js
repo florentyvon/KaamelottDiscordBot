@@ -9,7 +9,7 @@ module.exports = class RandomInsulteCommand extends commando.Command{
             group: 'insulte', 
             aliases:['il'], //permet que k!il conduise au même résultat que k!insultelist
             memberName: 'insultelist',
-            description: 'Obtiens la liste des insultes possibles et leur id respectif', 
+            description: 'Envoie en DM la liste des insultes possibles et leur id respectif', 
             examples: [ 'k!insultelist' ], // exemples d'utilisation
         }); 
     }

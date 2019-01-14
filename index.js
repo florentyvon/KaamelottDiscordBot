@@ -5,7 +5,7 @@ const path = require('path');
 const bot = new CommandoClient({
     commandPrefix: prefix,
     disableEveryone: true,
-    unknownCommandResponse: false
+    unknownCommandResponse: true
 })
 
 bot.registry
@@ -18,20 +18,6 @@ bot.registry
     ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
-
-bot.on('message', (message) => functionTest(message));
-let functionTest = async function(message) {
-    if (message.content == 'Comment t\'es ce soir ?') {
-        //message.reply('pong');
-        //msg.reply(`Hello! ${emoji}`);
-
-        // const emoji = message.guild.emojis.first(); 
-        // message.channel.send(`Déchainé moi, déchainé !!! ${emoji}`);
-        let msg = await message.channel.send("Déchainé moi, déchainé !!!");
-        msg.react("👍");
-        msg.react("👎");
-    }
-};
 
 bot.on('ready', () => { // when run bot
     console.log('Logged in!');

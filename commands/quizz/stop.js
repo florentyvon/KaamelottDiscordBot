@@ -8,7 +8,7 @@ module.exports = class StopCommand extends Command {
             name: 'stop',
             group: 'quizz',
             memberName: 'stop',
-            description: 'stop a quizz',
+            description: 'Arrête un quiz en cours si la majorité est d\'accord',
             examples: ['k!stop', 'Resultat :', 'Voulez-vous arreter ce quiz? \n Réagir pour voter'],
         });
     }

@@ -11,7 +11,7 @@ module.exports = class RandomCitationCommand extends Command {
             group: 'citation',
             aliases: ['c'],
             memberName: 'citation',
-            description: 'Renvoi une citation aléatoire.',
+            description: 'Envoie une citation aléatoire, potentiellement d\'un auteur et/ou d\'un livre donné(s)',
             examples: [
                 'citation [--p <nom de Personnage>] [--l <numero de Livre (1-6)>]'
             ]

@@ -9,7 +9,7 @@ module.exports = class StartCommand extends Command {
             name: 'start',
             group: 'quizz',
             memberName: 'start',
-            description: 'Start a quizz',
+            description: 'Commence un quiz',
             examples: ['k!start 1',
                 'Resultat :',
                 'Vous avez commencez un quiz de 1 question(s)'],

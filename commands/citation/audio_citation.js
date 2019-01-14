@@ -12,7 +12,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
             group: 'citation',
             aliases: ['ac'],
             memberName: 'audiocitation',
-            description: 'Joue l\'audio d\'une citation au hasard',
+            description: 'Joue l\'audio d\'une citation aléatoire, potentiellement d\'un auteur et/ou d\'un livre donné(s)',
             examples: [
                 'audiocitation [--p <nom de Personnage>] [--l <numero de Livre (1-6)>]'
             ]

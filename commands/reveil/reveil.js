@@ -8,7 +8,7 @@ module.exports = class Reveil extends Command {
             group: 'reveil',
             aliases: ['r'],
             memberName: 'reveil',
-            description: 'Réveille un chat vocal avec un "coup de tintouin"',
+            description: 'Réveille un chat vocal avec un coup de clairon',
             examples: [ 'k!reveil' ]
         });
     }

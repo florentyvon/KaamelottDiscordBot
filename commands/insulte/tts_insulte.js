@@ -9,10 +9,10 @@ module.exports = class RandominsultCommand extends Command {
             group: 'insulte',
             aliases: ['ti'], //permet que k!ti fonctionne commme k!ttsinsult
             memberName: 'ttsinsulte',
-            description: 'Renvoie une insulte aléatoire en tts à une personne donnée',
+            description: 'Envoie une insulte en tts à une personne donnée',
             examples: [
                 'k!ttsinsulte @user',
-                'k!ttsinsulte @nomPersonnage insulte_ID',
+                'k!ttsinsulte @user insulte_ID',
                 'Essaye k!insultelist pour connaître tous les ID'
             ],
             args: [

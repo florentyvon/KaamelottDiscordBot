@@ -8,7 +8,7 @@ module.exports = class ReplyCommand extends Command {
             name: 'rep',
             group: 'quizz',
             memberName: 'rep',
-            description: 'répond au quizz',
+            description: 'Répondre à la question du quiz en cours',
             examples: ['k!rep arthur', 'Resultat :', 'Mauvaise/bonne réponse'],
             args: [
                 {

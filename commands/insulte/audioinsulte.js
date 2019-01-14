@@ -9,7 +9,7 @@ module.exports = class RandomAudioInsulteCommand extends commando.Command {
             name: 'audioinsulte',
             group: 'insulte',
             memberName: 'audioinsulte',
-            description: 'Insulte quelqu\'un',
+            description: 'Insulte une personne donnée en audio si il est dans le même salon vocal que vous',
             aliases: ['ai'],
             examples: ['audioinsulte <@user> [id]', 'Utilisez k!insulteliste pour obtenir la liste des ID.'], 
             args: [
