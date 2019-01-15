@@ -19,8 +19,8 @@ Obtenir une version vocale de chaque citation.
 ![DemoCitation](/demo/citation.png)
 ## Installation :
 ### Prérequis :
-Avoir [Node.js](https://nodejs.org/en/download/) d'installer sur le PC ou le serveur qui va héberger le bot.
-Avoir cloné le projet ou télécharger l'archive et l'avoir dézippé sur la machine. 
+1. Avoir [Node.js](https://nodejs.org/en/download/) d'installer sur le PC ou le serveur qui va héberger le bot.  
+2. Avoir cloné le projet ou télécharger l'archive et l'avoir dézippé sur la machine. 
 ### Steps :
 1. Ouvrir un terminal et se rendre dans le dossier d'installation du bot
 2. Executer la ligne suivante pour installer toutes les dépendances du projet : 
