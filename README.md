@@ -1,37 +1,38 @@
 # KaamelottDiscordBot
-Project of a Discord Bot using quotes of the well known French TV show : Kaamelott
+Projet d'un Bot Discord utilisant les citations de la désormais célèbre série historique : Kaamelott. 
 
-## Functions
-Getting random quote with author, book and episode  
-Playing quiz : finding author of a random quote  
-Getting quote in vocal mode  
-Insult people with famous quotes
+## Fonctions
+Obtenir une citation aléatoire en fonction du livre et du personnage.  
+Jouer à un quiz pour deviner quel personnage à pu dire cette phrase dans la série.  
+Obtenir une version vocale de chaque citation.   
+"Insulter" quelqu'un avec des insultes célèbres de la série. 
 
-## Developpers
+## Développeurs
 [Aloïs BRETAUDEAU](https://github.com/Kilo-Graham), [Mickaël MENEUX](https://github.com/MickaMx), [Julien RAILLARD](https://github.com/jraillard), [Florent YVON](https://github.com/florentyvon)
 
 ## Bugs
 
 ## Evolutions
 
-## Demo
+## Démo
 ![DemoQuiz](/demo/quizz.png)
 ![DemoCitation](/demo/citation.png)
 ## Installation :
-### Prerequisites :
-Having [Node.js](https://nodejs.org/en/download/) installed on the server or computer you want to use to run the bot.
+### Prérequis :
+Avoir [Node.js](https://nodejs.org/en/download/) d'installer sur le PC ou le serveur qui va héberger le bot.
+Avoir cloné le projet ou télécharger l'archive et l'avoir dézippé sur la machine. 
 ### Steps :
-1. Use the following command line in the folder to install node modules after cloning the project : 
+1. Ouvrir un terminal et se rendre dans le dossier d'installation du bot
+2. Executer la ligne suivante pour installer toutes les dépendances du projet : 
 ```
 npm install --save
 ```
-2. To allow the bot to talk into voice channels :  
-    Install [ffmpeg](https://ffmpeg.org/download.html) for your OS :  
-        - Windows : [Tutorial](https://www.wikihow.com/Install-FFmpeg-on-Windows)  
-        - Linux & Derivatives : [Tutorial](https://www.ostechnix.com/install-ffmpeg-linux/)  
-        - MAC : [Tutorial](http://macappstore.org/ffmpeg/)  
+2. Pour permettre au bot de "parler" sur les chats vocaux :  
+    Installer [ffmpeg](https://ffmpeg.org/download.html) selon votre OS :  
+        - Windows ou Mac : [Tutoriel](https://emirchouchane.com/tutoriel-ffmpeg/)  
+        - Linux & Derivatives : [Tutoriel en PDF](lephmetre.fr/papers/ffmpeg_bases.pdf)  
 
-3. To run the bot, once you've reach its folder through a terminal : 
+3. Enfin, terminer par executer cette commande pour lancer le bot :
 ```
 node --harmony .
 ```
