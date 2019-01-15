@@ -9,7 +9,7 @@ module.exports = class RandomCitationCommand extends Command {
             group: 'citation',
             aliases: ['tc'],
             memberName: 'ttscitation',
-            description: 'Envoyer une citation aléatoire en tts, potentiellement d\'un auteur et/ou d\'un livre donné(s)',
+            description: 'Envoie une citation aléatoire en tts, potentiellement d\'un auteur et/ou d\'un livre donné(s)',
             examples: [
                 'ttscitation [--p <nom de Personnage>] [--l <numero de Livre (1-6)>]'
             ]
