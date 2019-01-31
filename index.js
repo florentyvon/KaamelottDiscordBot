@@ -14,7 +14,8 @@ bot.registry
         ['citation', 'citation'],
         ['insulte', 'insulte'],
         ['quizz', 'quizz'],
-        ['reveil', 'reveil']
+        ['reveil', 'reveil'],
+        ['presentation', 'presentation']
     ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
@@ -32,5 +33,4 @@ bot.on('ready', () => { // when run bot
     bot.user.setAvatar('Kaamelott.png');
 });
 
-//TODO : Find a way to hide it
 bot.login(token);
