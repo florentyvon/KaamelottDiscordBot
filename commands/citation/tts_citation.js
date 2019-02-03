@@ -30,7 +30,6 @@ module.exports = class RandomCitationCommand extends Command {
                 message.channel.send(CitationToString(json),{tts: true});
             })
             .catch((err) => {
-                //console.log(err + ' failed ');
                 //Si l'appel a échoué, renvoie une erreur
                 let embed = new discord.RichEmbed();
                 embed

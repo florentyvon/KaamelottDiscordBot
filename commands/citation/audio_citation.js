@@ -61,7 +61,6 @@ module.exports = class RandomAudioCitationCommand extends Command {
         Object.keys(sounds).forEach(element => {
             toplay.push(sounds[element]);
         });
-        //console.log("sf toplay :"+toplay.length);
 
         //filtre sur l'index du livre voulu par l'utilisateur : vérifie que le filtre -l a bien été voulu par l'utilisateur et qu'il est bien borné
         if (dict['l']) {
@@ -74,7 +73,6 @@ module.exports = class RandomAudioCitationCommand extends Command {
                 });
                 //reprend les valeurs de toplaytemp[] dans le toplay[]
                 toplay = toplaytemp.slice(0);
-                //console.log("fl toplaytemp :"+toplaytemp.length);
                 toplaytemp = [];
             }else{
                 //Si le livre est inconnu : renvoie une erreur
@@ -95,9 +93,7 @@ module.exports = class RandomAudioCitationCommand extends Command {
                 }
             });
             toplay = toplaytemp.slice(0);
-            //console.log("fp toplaytemp :"+toplaytemp.length);
         }
-        //console.log("fp toplay :"+toplay.length);
         
         if(toplay.length ==0){ //Si aucune citation ne correspond aux critères, renvoie une erreur
             let embed = new discord.RichEmbed();
@@ -116,7 +112,6 @@ module.exports = class RandomAudioCitationCommand extends Command {
         VC.join()
             .then(connection => {
                 //joue le fichier son aléatoire
-                //console.log("fichier : "+toplay[ind]);
                 const dispatcher = connection.playFile(soundsPath + toplay[ind]['file']);
                 //quitte le chat vocal quand la lecture est terminée
                 dispatcher.on("end", end => { VC.leave() });

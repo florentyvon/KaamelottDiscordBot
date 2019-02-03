@@ -21,7 +21,7 @@ bot.registry
     .registerCommandsIn(path.join(__dirname + "/commands")); // always last !
 
 bot.on('ready', () => { // when run bot
-    console.log('Logged in!');
+    console.log('Connexion Réussie');
     let channels = [...bot.channels.keys()];
     channel = channels[Math.floor(Math.random() * channels.length)];
     while (bot.channels.get(channel).type === "voice") {
