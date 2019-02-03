@@ -92,7 +92,7 @@ module.exports = class PresentationCommand extends Command {
           .catch(console.error);
 
         new Promise((resolve, reject) => {
-          setTimeout(() => resolve("Fait!"), 5000);
+          setTimeout(() => resolve("Fait!"), 6000);
         })
         .then(async function() {
 
@@ -120,7 +120,7 @@ module.exports = class PresentationCommand extends Command {
             message.channel.send(citationsTTS[1], { tts: true });
 
             new Promise((resolve, reject) => {
-              setTimeout(() => resolve("Fait!"), 5000);
+              setTimeout(() => resolve("Fait!"), 4500);
             })
               .then(async function() {
                 VC.join()
@@ -152,7 +152,7 @@ module.exports = class PresentationCommand extends Command {
                     );
 
                     dispatcher.on("end", end => {
-                      connection.playFile(path + citationsAudio[3]);
+                      dispatcher = connection.playFile(path + citationsAudio[3]);
                       dispatcher.on("end", end => {
                         VC.leave();
                       });
@@ -183,7 +183,7 @@ module.exports = class PresentationCommand extends Command {
                           .catch(console.error);
 
                         new Promise((resolve, reject) => {
-                          setTimeout(() => resolve("Fait!"), 4000);
+                          setTimeout(() => resolve("Fait!"), 5000);
                         })
                           .then(async function() {
                             message.channel.send(citationsTTS[4], {
@@ -191,7 +191,7 @@ module.exports = class PresentationCommand extends Command {
                             });
 
                             new Promise((resolve, reject) => {
-                              setTimeout(() => resolve("Fait!"), 4000);
+                              setTimeout(() => resolve("Fait!"), 3500);
                             })
                               .then(async function() {
                                 VC.join()
@@ -215,7 +215,7 @@ module.exports = class PresentationCommand extends Command {
                                     });
 
                                     new Promise((resolve, reject) => {
-                                      setTimeout(() => resolve("Fait!"), 2000);
+                                      setTimeout(() => resolve("Fait!"), 1500);
                                     })
                                       .then(async function() {
                                         VC.join()
@@ -282,7 +282,7 @@ module.exports = class PresentationCommand extends Command {
                                                         setTimeout(
                                                           () =>
                                                             resolve("Fait!"),
-                                                          9000
+                                                          8000
                                                         );
                                                       }
                                                     )
@@ -389,7 +389,7 @@ module.exports = class PresentationCommand extends Command {
                                                                                 resolve(
                                                                                   "Fait!"
                                                                                 ),
-                                                                              3000
+                                                                              2500
                                                                             );
                                                                           }
                                                                         )
@@ -507,7 +507,7 @@ module.exports = class PresentationCommand extends Command {
                                                                                               resolve(
                                                                                                 "Fait!"
                                                                                               ),
-                                                                                            4000
+                                                                                            3500
                                                                                           );
                                                                                         }
                                                                                       )
@@ -687,7 +687,7 @@ module.exports = class PresentationCommand extends Command {
                                                                                                                                   resolve(
                                                                                                                                     "Fait!"
                                                                                                                                   ),
-                                                                                                                                5000
+                                                                                                                                5500
                                                                                                                               );
                                                                                                                             }
                                                                                                                           )
