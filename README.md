@@ -32,7 +32,11 @@ npm install --save
         - Windows ou Mac : [Tutoriel](https://emirchouchane.com/tutoriel-ffmpeg/)  
         - Linux & Derivatives : [Tutoriel en PDF](lephmetre.fr/papers/ffmpeg_bases.pdf)  
 
-3. Enfin, terminer par executer cette commande pour lancer le bot :
+3. Pour éviter une faille de sécurité et un détournement du bot :
+- Pour juste lancer le bot : le fichier config.json est à demander par mail à florent.yvn@gmail.com ou ju.raillard@hotmail.fr.
+- Dans le cadre d'un fork pour upgrader le bot, il faut créer un compte discord developper et créer votre propre bot et son fichier config.json associé.
+
+4. Enfin, terminer par executer cette commande pour lancer le bot :
 ```
 node --harmony .
 ```
